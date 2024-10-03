@@ -21,6 +21,9 @@ public:
 	void Draw()override;
 
 	void UpdateMatrix();
+	void InitMatrix();
+	void YawPitchRoll();
+	void SetMatrix();
 
 	void SetPos(D3DXVECTOR3 pos);
 	D3DXVECTOR3& GetPos();

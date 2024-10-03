@@ -151,12 +151,28 @@ CObject3D* CObject3D::Create(D3DXVECTOR3 pos)
 //===========================================================================================================
 void CObject3D::UpdateMatrix()
 {
-	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
+	InitMatrix();
 
-	D3DXMATRIX mtxRot, mtxTrans;
+	YawPitchRoll();
 
+	SetMatrix();
+}
+
+//===========================================================================================================
+// ワールドマトリックスの初期化
+//===========================================================================================================
+void CObject3D::InitMatrix()
+{
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxWorld);
+}
+
+//===========================================================================================================
+// 拡縮・向き・位置をワールドマトリックスに反映
+//===========================================================================================================
+void CObject3D::YawPitchRoll()
+{
+	D3DXMATRIX mtxRot, mtxTrans;
 
 	// 向きを反映
 	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
@@ -165,6 +181,14 @@ void CObject3D::UpdateMatrix()
 	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
 	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+}
+
+//===========================================================================================================
+// マトリックスの設定
+//===========================================================================================================
+void CObject3D::SetMatrix()
+{
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
 
 	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
