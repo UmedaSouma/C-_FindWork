@@ -43,7 +43,7 @@ HRESULT CCamera::Init()
 	m_vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	m_rot = D3DXVECTOR3(-1.0f, 0.0f, 0.0f);
 
-	m_fDis = 200.0f;
+	m_fDis = 100.0f;
 	m_follow = 0.08f;
 
 	return S_OK;
@@ -79,9 +79,36 @@ void CCamera::Update()
 	// カメラが一周すると角度をリセットする
 	if (m_rot.y >= D3DX_PI * 2 || m_rot.y <= -D3DX_PI * 2)
 	{
-		m_rot.y = 0;
+		m_rot.y = 0.0f;
 	}
 	
+	UpdateInput();
+}
+
+//===========================================================================================================
+// カメラ操作
+//===========================================================================================================
+void CCamera::UpdateInput()
+{
+	CInputKeyBoard* keyboard = CManager::GetKeyboard();
+
+	if (keyboard->GetPress(DIK_1))
+	{
+		m_fDis--;
+	}
+	else if (keyboard->GetPress(DIK_2))
+	{
+		m_fDis++;
+	}
+
+	if (keyboard->GetPress(DIK_E))
+	{
+		m_rot.y += 0.1f;
+	}
+	if (keyboard->GetPress(DIK_Q))
+	{
+		m_rot.y += -0.1f;
+	}
 }
 
 //======================================================================================================

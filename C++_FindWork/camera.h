@@ -27,6 +27,7 @@ public:
 	void Uninit();
 	void Update();
 	void Draw();
+	void UpdateInput();
 	void SetCamera();	// カメラの設定
 	void SetTargetPos(D3DXVECTOR3 pos);
 	void SetShake(int frame, float strength);	// カメラ揺れの処理
@@ -46,6 +47,7 @@ private:
 	float m_fStrength;	// カメラ揺れの強度
 public:
 	D3DXVECTOR3 GetPos() { return m_posV; }
+	D3DXVECTOR3 GetRot() { return m_rot; }
 };
 
 
