@@ -53,7 +53,7 @@ HRESULT CPlayer3D::Init()
 	CModel::Init();
 
 	SetSize({ 10.0f, 20.0f, 15.0f });
-	m_fSpeed = 1.0f;
+	m_fSpeed = 3.0f;
 
 	m_nLife = m_MaxLife;
 
@@ -146,40 +146,92 @@ D3DXVECTOR3 CPlayer3D::InputPosPlayer()
 {
 	CInputKeyBoard* keyboard = CManager::GetKeyboard();
 	CInputJoypad* joypad = CManager::GetJoypad();
+	CCamera* pCamera = CManager::GetCamera();
 
-	if (keyboard->GetPress(DIK_A) || joypad->GetPress(CInputJoypad::JOYKEY_LEFT))
-	{
-		m_Move.x += sinf(-D3DX_PI * 0.5f) * m_fSpeed;
-		m_Move.y += cosf(-D3DX_PI * 0.5f) * m_fSpeed;
 
-		SetDirection(CModel::DIRECTION_LEFT);
-	}
-	if (keyboard->GetPress(DIK_D)||joypad->GetPress(CInputJoypad::JOYKEY_RIGHT))
-	{
-		m_Move.x += sinf(-D3DX_PI * 0.5f) * -m_fSpeed;
-		m_Move.y += cosf(-D3DX_PI * 0.5f) * -m_fSpeed;
-
-		SetDirection(CModel::DIRECTION_RIGHT);
-	}
-	//if (keyboard->GetPress(DIK_W))
+	//if (keyboard->GetPress(DIK_A) || joypad->GetPress(CInputJoypad::JOYKEY_LEFT))
 	//{
-	//	m_Move.z += sinf(-D3DX_PI * 0.5f) * -m_fSpeed;
-	//	m_Move.x += cosf(-D3DX_PI * 0.5f) * -m_fSpeed;
+	//	m_Move.x += sinf(-D3DX_PI * 0.5f) * m_fSpeed;
+	//	m_Move.y += cosf(-D3DX_PI * 0.5f) * m_fSpeed;
+
+	//	SetDirection(CModel::DIRECTION_LEFT);
 	//}
-	//if (keyboard->GetPress(DIK_S))
+	//if (keyboard->GetPress(DIK_D)||joypad->GetPress(CInputJoypad::JOYKEY_RIGHT))
 	//{
-	//	m_Move.z -= sinf(-D3DX_PI * 0.5f) * -m_fSpeed;
-	//	m_Move.x -= cosf(-D3DX_PI * 0.5f) * -m_fSpeed;
+	//	m_Move.x += sinf(-D3DX_PI * 0.5f) * -m_fSpeed;
+	//	m_Move.y += cosf(-D3DX_PI * 0.5f) * -m_fSpeed;
+
+	//	SetDirection(CModel::DIRECTION_RIGHT);
 	//}
+	if (keyboard->GetPress(DIK_A))
+	{
+		if (keyboard->GetPress(DIK_W) || joypad->GetPress(CInputJoypad::JOYKEY_UP))
+		{
+			m_Move.x = sinf(pCamera->GetRot().y - 0.75f) * m_fSpeed;
+			m_Move.z = cosf(pCamera->GetRot().y - 0.75f) * m_fSpeed;
+
+			//g_player.rotmove.y = 1.0f;
+
+			//g_player.GetRot().y = (pCamera->GetRot().y - (D3DX_PI * 2.32f));
+		}
+		else if (keyboard->GetPress(DIK_S) || joypad->GetPress(CInputJoypad::JOYKEY_DOWN))
+		{
+
+			m_Move.x = sinf(pCamera->GetRot().y - 2.32f) * m_fSpeed;
+			m_Move.z = cosf(pCamera->GetRot().y - 2.32f) * m_fSpeed;
+
+			//g_player.GetRot().y = (pCamera->GetRot().y - (D3DX_PI * 0.75f));
+		}
+		else if (keyboard->GetPress(DIK_A) || joypad->GetPress(CInputJoypad::JOYKEY_LEFT))
+		{
+			m_Move.x = sinf(pCamera->GetRot().y - (D3DX_PI * 0.5f)) * m_fSpeed;
+			m_Move.z = cosf(pCamera->GetRot().y - (D3DX_PI * 0.5f)) * m_fSpeed;
+
+			//g_player.GetRot().y = (pCamera->GetRot().y - (D3DX_PI * 0.5f));
+		}
+	}
+	else if (keyboard->GetPress(DIK_D))
+	{
+		if (keyboard->GetPress(DIK_W) || joypad->GetPress(CInputJoypad::JOYKEY_UP))
+		{
+			m_Move.x = sinf(pCamera->GetRot().y - -0.75f) * m_fSpeed;
+			m_Move.z = cosf(pCamera->GetRot().y - -0.75f) * m_fSpeed;
+
+			//g_player.GetRot().y = (pCamera->GetRot().y - (D3DX_PI * -2.32f));
+		}
+		else if (keyboard->GetPress(DIK_S) || joypad->GetPress(CInputJoypad::JOYKEY_DOWN))
+		{
+
+			m_Move.x = sinf(pCamera->GetRot().y - -2.32f) * m_fSpeed;
+			m_Move.z = cosf(pCamera->GetRot().y - -2.32f) * m_fSpeed;
+
+			//g_player.GetRot().y = (pCamera->GetRot().y - (D3DX_PI * -0.75f));
+		}
+		else if (keyboard->GetPress(DIK_D) || joypad->GetPress(CInputJoypad::JOYKEY_RIGHT))
+		{
+			m_Move.x = sinf(pCamera->GetRot().y - (D3DX_PI * -0.5f)) * m_fSpeed;
+			m_Move.z = cosf(pCamera->GetRot().y - (D3DX_PI * -0.5f)) * m_fSpeed;
+
+			//g_player.GetRot().y = (pCamera->GetRot().y - (D3DX_PI * -0.5f));
+		}
+	}
+	else if (keyboard->GetPress(DIK_W))
+	{
+		m_Move.x = sinf(pCamera->GetRot().y) * m_fSpeed;
+		m_Move.z = cosf(pCamera->GetRot().y) * m_fSpeed;
+
+		//g_player.GetRot().y = (pCamera->GetRot().y);
+	}
+	else if (keyboard->GetPress(DIK_S))
+	{
+		m_Move.x = sinf(pCamera->GetRot().y) * -m_fSpeed;
+		m_Move.z = cosf(pCamera->GetRot().y) * -m_fSpeed;
+
+		//g_player.GetRot().y = (pCamera->GetRot().y + D3DX_PI);
+	}
 
 	// ƒWƒƒƒ“ƒvd—Íˆ—
 	Jump();
-
-	//// ‰æ–Ê‚ğ—h‚ç‚·ˆ—
-	//if (keyboard->GetTrigger(DIK_F1))
-	//{
-	//	CManager::GetCamera()->SetShake(120, 5.0f);
-	//}
 
 	return m_Move;
 }
