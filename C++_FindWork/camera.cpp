@@ -137,13 +137,20 @@ void CCamera::SetCamera()
 		10.0f,
 		1000.0f);
 
-	//// プロジェクションマトリックスを作成(平衡投影)
-	//D3DXMatrixOrthoLH(
-	//	&m_mtxProjection,
-	//	(float)SCREEN_WIDTH*0.1f,
-	//	(float)SCREEN_HEIGHT * 0.1f,
-	//	10.0f,
-	//	1000.0f);
+	CInputKeyBoard* keyboard = CManager::GetKeyboard();
+
+	if (keyboard->GetPress(DIK_F1))
+	{
+		// プロジェクションマトリックスを作成(平衡投影)
+		D3DXMatrixOrthoLH(
+			&m_mtxProjection,
+			(float)SCREEN_WIDTH * 0.1f,
+			(float)SCREEN_HEIGHT * 0.1f,
+			10.0f,
+			1000.0f);
+	}
+
+	
 
 	// プロジェクションマトリックスの設定
 	pDevice->SetTransform(D3DTS_PROJECTION, &m_mtxProjection);
