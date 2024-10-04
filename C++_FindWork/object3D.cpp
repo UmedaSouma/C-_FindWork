@@ -58,7 +58,7 @@ HRESULT CObject3D::Init()
 	// カラーの設定
 	for (int nCnt = 0; nCnt < 4; nCnt++)
 	{// 白
-		pVtx[nCnt].col = D3DCOLOR_RGBA(255, 255, 255, 255);
+		pVtx[nCnt].col = D3DCOLOR_RGBA(0, 255, 0, 255);
 	}
 
 	pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
@@ -66,7 +66,7 @@ HRESULT CObject3D::Init()
 	pVtx[2].tex = D3DXVECTOR2(0.0f, 1.0f);
 	pVtx[3].tex = D3DXVECTOR2(1.0f, 1.0f);
 
-	m_rot.x = (D3DX_PI * -0.5f);
+	//m_rot.x = (D3DX_PI);
 
 	m_pVtxBuff->Unlock();
 
@@ -140,6 +140,7 @@ CObject3D* CObject3D::Create(D3DXVECTOR3 pos)
 	pObject3D = new CObject3D;
 
 	pObject3D->m_pos = pos;
+	pObject3D->m_size = { 100.0f,0.0f,100.0f };
 
 	pObject3D->Init();
 
@@ -174,13 +175,30 @@ void CObject3D::YawPitchRoll()
 {
 	D3DXMATRIX mtxRot, mtxTrans;
 
-	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
+	//// 向きを反映
+	//D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
+	//D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 
 	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
 	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+}
+
+void CObject3D::ViewMatrix()
+{
+	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
+	D3DXMATRIX mtxView;
+
+	// ビューマトリックスの取得
+	pDevice->GetTransform(D3DTS_VIEW, &mtxView);
+
+	// ポリゴンをカメラに対して正面に向ける
+	D3DXMatrixInverse(&m_mtxWorld, nullptr, &mtxView);
+
+	// 行列に何かしている
+	m_mtxWorld._41 = 0.0f;
+	m_mtxWorld._42 = 0.0f;
+	m_mtxWorld._43 = 0.0f;
 }
 
 //===========================================================================================================

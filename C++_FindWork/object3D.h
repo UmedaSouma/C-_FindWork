@@ -24,6 +24,7 @@ public:
 	void InitMatrix();
 	void YawPitchRoll();
 	void SetMatrix();
+	void ViewMatrix();
 
 	void SetPos(D3DXVECTOR3 pos);
 	D3DXVECTOR3& GetPos();

@@ -21,9 +21,6 @@ HRESULT CTitle::Init()
 {
 	CScene::Init();
 
-	CText* pText = CRenderer::GetText();
-	pText->SetText(CText::TEXT_TEST);
-
 	return S_OK;
 }
 
