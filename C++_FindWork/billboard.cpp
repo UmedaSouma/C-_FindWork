@@ -56,12 +56,12 @@ void CBillboard::Update()
 //========================================================================================================================
 void CBillboard::Draw()
 {
-	CObject3D::InitMatrix();
+	CObject3D::InitMatrix();	// マトリックスの初期化
 
-	CObject3D::ViewMatrix();
-	CObject3D::YawPitchRoll();
+	CObject3D::ViewMatrix();	// ビューマトリックスの取得設定
+	CObject3D::YawPitchRoll();	// 拡縮・向き・位置の反映
 
-	CObject3D::SetMatrix();
+	CObject3D::SetMatrix();		// マトリックスの設定
 
 	CObject3D::Draw();
 }
@@ -73,7 +73,7 @@ CBillboard* CBillboard::Create(D3DXVECTOR3 pos)
 {
 	CBillboard* pBillboard = new CBillboard;
 	pBillboard->SetPos(pos);
-	pBillboard->SetNormalize({ 0.0f,0.0f,-1.0f });
+	pBillboard->SetNormalize({ 0.0f,0.0f,-1.0f }); // 法線ベクトルの設定
 
 	pBillboard->Init();
 
