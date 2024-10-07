@@ -150,8 +150,6 @@ void CCamera::SetCamera()
 			1000.0f);
 	}
 
-	
-
 	// プロジェクションマトリックスの設定
 	pDevice->SetTransform(D3DTS_PROJECTION, &m_mtxProjection);
 
