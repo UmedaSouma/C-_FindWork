@@ -13,11 +13,10 @@ class CModeldata
 public:
 	typedef struct
 	{
-		LPD3DXMESH Mesh;			// メッシュ(頂点情報)へのポインタ
+		LPD3DXMESH Mesh;		// メッシュ(頂点情報)へのポインタ
 		LPD3DXBUFFER BuffMat;	// マテリアルへのポインタ
-		DWORD NumMat;	// マテリアルの数
+		DWORD NumMat;			// マテリアルの数
 	}ModelData;
-
 
 	static const unsigned int MAX_MODEL_DATA = 64;	// モデルデータの最大値
 	static const unsigned int MAX_MAT_DATA = 514;	// １キャラクター分のマテリアルデータ最大値
