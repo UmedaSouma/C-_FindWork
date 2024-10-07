@@ -28,11 +28,9 @@ CBillboard::~CBillboard()
 HRESULT CBillboard::Init()
 {
 	int nTexIdx = 0;
-	SetSize({ 100.0f,0.0f,100.0f });
+	SetSize({ 10.0f,10.0f,0.0f });
 
 	CObject3D::Init();
-
-	
 
 	return S_OK;
 }
@@ -61,10 +59,9 @@ void CBillboard::Draw()
 	CObject3D::InitMatrix();
 
 	CObject3D::ViewMatrix();
-
 	CObject3D::YawPitchRoll();
-	CObject3D::SetMatrix();
 
+	CObject3D::SetMatrix();
 
 	CObject3D::Draw();
 }
@@ -76,6 +73,7 @@ CBillboard* CBillboard::Create(D3DXVECTOR3 pos)
 {
 	CBillboard* pBillboard = new CBillboard;
 	pBillboard->SetPos(pos);
+	pBillboard->SetNormalize({ 0.0f,0.0f,-1.0f });
 
 	pBillboard->Init();
 

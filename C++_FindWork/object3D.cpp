@@ -13,6 +13,7 @@ CObject3D::CObject3D(int nPriority) : CObject(nPriority)
 , m_pVtxTexture(nullptr)
 , m_length(0.0f)
 , m_Angle(0.0f)
+, m_normalize{ 0.0f,0.0f,0.0f }
 {
 }
 
@@ -45,15 +46,15 @@ HRESULT CObject3D::Init()
 
 
 	// 座標の設定
-	pVtx[0].pos = D3DXVECTOR3(-m_size.x, 0.0f, +m_size.z);
-	pVtx[1].pos = D3DXVECTOR3(+m_size.x, 0.0f, +m_size.z);
-	pVtx[2].pos = D3DXVECTOR3(-m_size.x, 0.0f, -m_size.z);
-	pVtx[3].pos = D3DXVECTOR3(+m_size.x, 0.0f, -m_size.z);
+	pVtx[0].pos = D3DXVECTOR3(-m_size.x, +m_size.y, -m_size.z);
+	pVtx[1].pos = D3DXVECTOR3(+m_size.x, +m_size.y, -m_size.z);
+	pVtx[2].pos = D3DXVECTOR3(-m_size.x, -m_size.y, +m_size.z);
+	pVtx[3].pos = D3DXVECTOR3(+m_size.x, -m_size.y, +m_size.z);
 
-	pVtx[0].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	pVtx[1].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	pVtx[2].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	pVtx[3].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	pVtx[0].nor = D3DXVECTOR3(m_normalize);
+	pVtx[1].nor = D3DXVECTOR3(m_normalize);
+	pVtx[2].nor = D3DXVECTOR3(m_normalize);
+	pVtx[3].nor = D3DXVECTOR3(m_normalize);
 
 	// カラーの設定
 	for (int nCnt = 0; nCnt < 4; nCnt++)
@@ -141,6 +142,8 @@ CObject3D* CObject3D::Create(D3DXVECTOR3 pos)
 
 	pObject3D->m_pos = pos;
 	pObject3D->m_size = { 100.0f,0.0f,100.0f };
+	pObject3D->m_normalize = { 0.0f,1.0f,0.0f };
+
 
 	pObject3D->Init();
 
@@ -169,19 +172,45 @@ void CObject3D::InitMatrix()
 }
 
 //===========================================================================================================
-// 拡縮・向き・位置をワールドマトリックスに反映
+// 大きさを反映
 //===========================================================================================================
-void CObject3D::YawPitchRoll()
+void CObject3D::ScaleMatrix()
 {
-	D3DXMATRIX mtxRot, mtxTrans;
+	D3DXMATRIX mtxScale;
+}
 
-	//// 向きを反映
-	//D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	//D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
+//===========================================================================================================
+// 向きの反映
+//===========================================================================================================
+void CObject3D::RotMatrix()
+{
+	D3DXMATRIX mtxRot;
+
+	// 向きを反映
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
+}
+
+//===========================================================================================================
+// 位置の反映
+//===========================================================================================================
+void CObject3D::PosMatrix()
+{
+	D3DXMATRIX mtxTrans;
 
 	// 位置を反映
 	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
 	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+}
+
+//===========================================================================================================
+// 拡縮・向き・位置をワールドマトリックスに反映
+//===========================================================================================================
+void CObject3D::YawPitchRoll()
+{
+	ScaleMatrix();
+	RotMatrix();
+	PosMatrix();
 }
 
 void CObject3D::ViewMatrix()

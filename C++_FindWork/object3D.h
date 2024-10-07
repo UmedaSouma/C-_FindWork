@@ -22,6 +22,9 @@ public:
 
 	void UpdateMatrix();
 	void InitMatrix();
+	void ScaleMatrix();
+	void RotMatrix();
+	void PosMatrix();
 	void YawPitchRoll();
 	void SetMatrix();
 	void ViewMatrix();
@@ -38,6 +41,9 @@ public:
 	void SetAngle(float sizeA, float sizeB);
 	float GetAngle() { return m_Angle; }
 
+	void SetNormalize(D3DXVECTOR3 nor) { m_normalize = nor; }
+	D3DXVECTOR3 GetNormalize() { return m_normalize; }
+
 	const D3DXMATRIX& GetMatrix() const { return m_mtxWorld; }
 
 	static CObject3D* Create(D3DXVECTOR3 pos);
@@ -47,10 +53,12 @@ private:
 	D3DXVECTOR3 m_pos;
 	D3DXVECTOR3 m_rot;
 	D3DXVECTOR3 m_size;
+	D3DXMATRIX m_mtxWorld;
+	D3DXVECTOR3 m_normalize;
+
 	float m_length;	// ”ÍˆÍ	
 					//	|[>‰~‚Ì”»’è‚ÉŽg‚¤•¨
 	float m_Angle;	// Šp“x
-	D3DXMATRIX m_mtxWorld;
 };
 
 #endif // !_OBJECT3D_H_
