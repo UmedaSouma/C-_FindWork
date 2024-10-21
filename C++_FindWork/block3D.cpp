@@ -22,7 +22,7 @@ HRESULT CBlock3D::Init()
 {
 	CModel::Init();
 
-	SetModelAddress("data\\model\\block_block001.x");		// アドレスを保存しておく
+	SetModelAddress("data\\model\\road_000.x");		// アドレスを保存しておく
 	CModeldata* pModeldata = CManager::GetModeldata();		// modeldata のポインタを持ってくる
 	int nIdx = pModeldata->Regist(GetModelAddress());		// モデルデータの登録
 	BindModel(pModeldata->GetAddress(nIdx));				// モデル情報をセットする
