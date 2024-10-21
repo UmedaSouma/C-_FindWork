@@ -96,8 +96,8 @@ int CTexture::Regist(const char* pTexturename)
 //==================================================================================================
 LPDIRECT3DTEXTURE9 CTexture::GetAddress(int Idx)
 {
-	if(Idx==-1)
-	{
+	if (Idx == -1)
+	{// -1‚Í nullptr ‚Å•Ô‚·
 		return nullptr;
 	}
 
