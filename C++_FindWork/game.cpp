@@ -42,15 +42,17 @@ HRESULT CGame::Init()
 
 	for (int Vertical = 0; Vertical < 5; Vertical++)
 	{
-		for (int Horizon = 0; Horizon < 1000; Horizon++)
+		for (int Horizon = 0; Horizon < 100; Horizon++)
 		{
 			CBlock3D::Create({ 0.0f + (Vertical * 20.0f),-30.0f,0.0f + (Horizon * 20.0f) });
 		}
 	}
 
-	CBillboard::Create({ 30.0f,5.0f,0.0f });
+	CBlock3D::Create({ 10.0f,50.0f,20.0f });
 
-	CItem::Create({ 30.0f,0.0f,0.0f });
+	//CBillboard::Create({ 30.0f,5.0f,0.0f });
+
+	//CItem::Create({ 30.0f,0.0f,0.0f });
 
 	return S_OK;
 }
