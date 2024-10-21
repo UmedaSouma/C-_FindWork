@@ -101,7 +101,7 @@ void CGame::Update()
 	
 
 	// デバッグ用右矢印でシーン切り替え
-	if (keyboard->GetTrigger(DIK_RIGHTARROW))
+	if (keyboard->GetTrigger(DIK_RETURN))
 	{
 		pFade->SetFade(CScene::MODE_TITLE);
 
