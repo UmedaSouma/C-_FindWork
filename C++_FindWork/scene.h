@@ -23,6 +23,7 @@ public:
 		MODE_GAME,
 		MODE_RESULT,
 		MODE_EDITOR,
+		MODE_EDITOR_PRAM,	// 車のパラメーターを決める
 		MODE_MAX
 	}MODE;
 

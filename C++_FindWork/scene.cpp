@@ -84,6 +84,11 @@ CScene* CScene::Create(MODE mode)
 		pScene = new CResult;
 
 		break;
+
+	case MODE::MODE_EDITOR_PRAM:
+		//pScene=new
+
+		break;
 	}
 
 	m_Mode = mode;
