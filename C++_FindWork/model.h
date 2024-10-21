@@ -39,6 +39,7 @@ public:
 	void bMat(bool bmat) { m_bMat = bmat; }
 	void SetDefaultMat(D3DCOLORVALUE mat, int nummat);
 	void FixRot();	// 角度を修正する
+	void SetModelTex(D3DXMATERIAL* pMat);
 
 	static CModel* Create(D3DXVECTOR3 pos);
 
@@ -47,11 +48,14 @@ public:
 	int GetModelIdx() { return m_nIdx; }	// モデル番号を取得する
 	void SetModelAddress(const char* Address) { m_pModelAddress = Address; }
 	const char* GetModelAddress() { return m_pModelAddress; }
+	void SetTexIdx(int nNum, int idx) { m_TexIdx[nNum] = idx; }
+	void BindModelTex(LPDIRECT3DTEXTURE9 tex,int idx) { m_apTexture[idx] = tex; }
 private:
 	int m_nIdx;
 	int m_Direction;
-	LPDIRECT3DTEXTURE9 m_apTexture[16] = {};
+	LPDIRECT3DTEXTURE9 m_apTexture[128] = {};
 	D3DCOLORVALUE m_Diffuse[64];
+	int m_TexIdx[CModeldata::MAX_MAT_DATA];	// モデルのテクスチャ番号
 	bool m_bMat;	// ダメージ状態のマテリアル変更
 	const char* m_pModelAddress;	// モデルデータのアドレス
 	

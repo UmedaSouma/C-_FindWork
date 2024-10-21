@@ -113,14 +113,6 @@ int CModeldata::Regist(const char*modelpass)
 
 				for (int nCntMat = 0; nCntMat < (int)m_pModelData[nCnt].NumMat; nCntMat++)
 				{
-					//if (pMat[nCntMat].pTextureFilename != nullptr)
-					//{
-					//	if (SUCCEEDED(D3DXCreateTextureFromFile(pDevice, pMat[nCntMat].pTextureFilename, &m_pTexData[nCnt].pTex[nCntMat])))	// テクスチャ作成
-					//	{
-
-					//	}
-					//}
-
 					m_StandardCol[nCnt][nCntMat] = pMat[nCntMat].MatD3D.Diffuse;	// 元の色を保存しておく
 				}
 

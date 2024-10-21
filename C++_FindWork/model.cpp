@@ -80,6 +80,8 @@ void CModel::Draw()
 		pMat = (D3DXMATERIAL*)m_ModelInfo.BuffMat->GetBufferPointer();
 		CModeldata* pModeldata = CManager::GetModeldata();	// Modeldata のポインタを持ってくる
 
+		SetModelTex(pMat);
+
 		if (pModeldata)
 		{
 			for (int nCntMat = 0; nCntMat < (int)m_ModelInfo.NumMat; nCntMat++)
@@ -102,7 +104,7 @@ void CModel::Draw()
 				pDevice->SetMaterial(&pMat[nCntMat].MatD3D);
 
 				// テクスチャの設定
-				pDevice->SetTexture(0, nullptr);
+				pDevice->SetTexture(0, m_apTexture[nCntMat]);
 
 				// モデルパーツの描画
 				m_ModelInfo.Mesh->DrawSubset(nCntMat);
@@ -209,4 +211,21 @@ void CModel::SetModel(const char* address)
 	pModeldata = CManager::GetModeldata();
 	nIdx = pModeldata->Regist(address);
 	BindModel(CManager::GetModeldata()->GetAddress(nIdx));
+}
+
+//===========================================================================================================
+// モデルのテクスチャ設定
+//===========================================================================================================
+void CModel::SetModelTex(D3DXMATERIAL* pMat)
+{
+	if (pMat != nullptr)
+	{
+		for (int nCntMat = 0; nCntMat < (int)m_ModelInfo.NumMat; nCntMat++)
+		{
+			int nTexIdx = 0;
+			CTexture* pTex = CManager::GetTexture();
+			m_TexIdx[nCntMat] = pTex->Regist(pMat[nCntMat].pTextureFilename);
+			BindModelTex(pTex->GetAddress(m_TexIdx[nCntMat]),nCntMat);
+		}
+	}
 }

@@ -58,9 +58,13 @@ int CTexture::Regist(const char* pTexturename)
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
 	int nIdx = 0;
 
+	// テクスチャが設定されていなかったら
+	if (pTexturename == nullptr) 
+	{ return -1; }		// 何も設定されていないという -1 を設定する
+
 	for (int nCntTex = 0; nCntTex < MAX_TEXTURE; nCntTex++)
 	{
-		if (m_pTexture[nCntTex] == nullptr)
+		if (m_pTexture[nCntTex] == nullptr && m_pTexStorage[nCntTex] == nullptr)
 		{// テクスチャが設定されていなかったら
 			if (SUCCEEDED(D3DXCreateTextureFromFile(pDevice, pTexturename, &m_pTexture[nCntTex])))	// テクスチャ作成
 			{
@@ -72,8 +76,8 @@ int CTexture::Regist(const char* pTexturename)
 
 			}
 			else
-			{
-				assert(false);
+			{// テクスチャがデータに存在していない
+				assert(false,"テクスチャが存在していないよ！");
 			}
 		}
 		else if(!strcmp(pTexturename, m_pTexStorage[nCntTex]))
@@ -92,5 +96,10 @@ int CTexture::Regist(const char* pTexturename)
 //==================================================================================================
 LPDIRECT3DTEXTURE9 CTexture::GetAddress(int Idx)
 {
+	if(Idx==-1)
+	{
+		return nullptr;
+	}
+
 	return m_pTexture[Idx];
 }
