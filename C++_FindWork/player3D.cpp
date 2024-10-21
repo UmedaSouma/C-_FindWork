@@ -92,6 +92,8 @@ void CPlayer3D::Update()
 	// プレイヤー操作
 	InputPosPlayer();
 
+	
+
 	if (!m_bSlip)
 	{
 		m_bUseJump = true;
@@ -147,6 +149,8 @@ D3DXVECTOR3 CPlayer3D::InputPosPlayer()
 	CInputKeyBoard* keyboard = CManager::GetKeyboard();
 	CInputJoypad* joypad = CManager::GetJoypad();
 	CCamera* pCamera = CManager::GetCamera();
+
+	D3DXVECTOR3 rot = GetRot();
 
 
 	//if (keyboard->GetPress(DIK_A) || joypad->GetPress(CInputJoypad::JOYKEY_LEFT))
@@ -217,17 +221,26 @@ D3DXVECTOR3 CPlayer3D::InputPosPlayer()
 	}
 	else if (keyboard->GetPress(DIK_W))
 	{
-		m_Move.x = sinf(pCamera->GetRot().y) * m_fSpeed;
-		m_Move.z = cosf(pCamera->GetRot().y) * m_fSpeed;
+		m_Move.x = sinf(pCamera->GetRot().y)+ sinf(rot.y) * m_fSpeed;
+		m_Move.z = cosf(pCamera->GetRot().y)+ cosf(rot.y) * m_fSpeed;
 
 		//g_player.GetRot().y = (pCamera->GetRot().y);
 	}
 	else if (keyboard->GetPress(DIK_S))
 	{
-		m_Move.x = sinf(pCamera->GetRot().y) * -m_fSpeed;
-		m_Move.z = cosf(pCamera->GetRot().y) * -m_fSpeed;
+		m_Move.x = sinf(pCamera->GetRot().y) + sinf(rot.y) * -m_fSpeed;
+		m_Move.z = cosf(pCamera->GetRot().y) + cosf(rot.y) * -m_fSpeed;
 
 		//g_player.GetRot().y = (pCamera->GetRot().y + D3DX_PI);
+	}
+
+	if (keyboard->GetPress(DIK_RIGHTARROW))
+	{
+		SetRot({ rot.x,rot.y + 0.01f,rot.z });
+	}
+	if (keyboard->GetPress(DIK_LEFTARROW))
+	{
+		SetRot({ rot.x,rot.y - 0.01f,rot.z });
 	}
 
 	// ジャンプ重力処理
