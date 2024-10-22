@@ -23,6 +23,7 @@
     <ClCompile Include="block3D.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="car.cpp" />
+    <ClCompile Include="car_normal.cpp" />
     <ClCompile Include="editor_param.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="fieldmanager.cpp" />
@@ -61,6 +62,7 @@
     <ClInclude Include="block3D.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="car.h" />
+    <ClInclude Include="car_normal.h" />
     <ClInclude Include="editor_param.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="fieldmanager.h" />

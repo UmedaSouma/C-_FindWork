@@ -13,6 +13,42 @@
 class CCar:public CModel
 {
 public:
+
+	//================================================================
+
+	//--------------------------------------------------------
+	// < debugmemo >
+	// 一旦ここで値を設定しとく。
+	// 後でテキストファイルで入出力をする
+	//--------------------------------------------------------
+	static const int MAX_LIFE = 150;					// 最大速度
+	static const int MAX_GEAR = 5;						// ギア数
+	inline static const float MAX_WEIGHT = 30.0f;		// 重さ
+	inline static const float MAX_BENDING = 0.1f;		// 曲がりやすさ
+
+	inline static const float							// ギアごとのスピード
+	MAX_SPEED[MAX_GEAR] = {
+	12.0f,
+	15.0f,
+	18.0f,
+	22.0f,
+	30.0f
+	};
+	
+	//================================================================
+
+	//======================================
+	// 車のタイプ
+	//======================================
+	typedef enum
+	{
+		CAR_NORMAL = 0,
+		CAR_TRACK,
+		CAR_SPORTS,
+		CAR_MAX
+	}TYPE;
+
+
 	CCar();
 	~CCar()override;
 	HRESULT Init()override;	// 初期設定
@@ -22,19 +58,27 @@ public:
 
 	static CCar* Create();   // 生成処理
 private:
-
+	//===================================================
 	// 車のパラメーター
+	//===================================================
 	struct Param
 	{
-		float fWeight;	// 車の重さ
-		int nGearNum;	// ギア数
-		float fBending;	// 曲がりやすさ
-		float fMaxSpeed[];	// 最大スピード
+		int nMaxLife;		// 最大体力
+		int nLife;			// 体力
+		int nGearNum;		// ギア数
+		float fWeight;		// 車の重さ
+		float fBending;		// 曲がりやすさ
+		float fMaxSpeed[5];	// 最大スピード
 	};
 
+	TYPE m_type;	// 車のタイプ
 	Param m_Param;	// パラメーターを扱う変数
-
 public:
+
+	//================================================
+	// Setter,Getter
+	//================================================
+
 	//-- 重さ --
 	void SetWeight(float Weight) { m_Param.fWeight = Weight; }
 	float GetWeight() { return m_Param.fWeight; }
@@ -51,13 +95,17 @@ public:
 	void SetMaxSpeed(int idx, float MaxSpeed) { m_Param.fMaxSpeed[idx] = MaxSpeed; }
 	float GetfMaxSpeed(int idx) { return m_Param.fMaxSpeed[idx]; }
 
+	//-- 最大体力 --
+	void SetMaxLife(int maxlife) { m_Param.nMaxLife = maxlife; }
+	int GetMaxLife() { return m_Param.nMaxLife; }
+
+	//-- 体力 --
+	void SetLife(int life) { m_Param.nLife = life; }
+	int GetLife() { return m_Param.nLife; }
+
+	//-- タイプ --
+	void SetType(TYPE type) { m_type = type; }
+	TYPE GetType() { return m_type; }
 };
 
-
-
-
 #endif // !CAR_H_
-
-//===========================================================================================================
-// 車のベースをここに書く
-//===========================================================================================================
