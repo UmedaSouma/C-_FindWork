@@ -14,6 +14,7 @@
 #include "block3D.h"
 #include "item.h"
 #include "billboard.h"
+#include "car_normal.h"
 
 int CGame::m_nDelayEnd = 0; // “|‚µ‚Ä‚©‚çƒŠƒUƒ‹ƒg‚É‚È‚é‚Ü‚Å
 bool CGame::m_Delay = false;
@@ -49,6 +50,8 @@ HRESULT CGame::Init()
 	}
 
 	CBlock3D::Create({ 10.0f,50.0f,20.0f });
+
+	CCarNormal::Create({ 10.0f,50.0f,30.0f });
 
 	//CBillboard::Create({ 30.0f,5.0f,0.0f });
 
