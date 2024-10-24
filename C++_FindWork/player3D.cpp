@@ -221,8 +221,8 @@ D3DXVECTOR3 CPlayer3D::InputPosPlayer()
 	}
 	else if (keyboard->GetPress(DIK_W))
 	{
-		m_Move.x = sinf(pCamera->GetRot().y)+ sinf(rot.y) * m_fSpeed;
-		m_Move.z = cosf(pCamera->GetRot().y)+ cosf(rot.y) * m_fSpeed;
+		m_Move.x = sinf(pCamera->GetRot().y+ rot.y)/*+ sinf()*/ * m_fSpeed;
+		m_Move.z = cosf(pCamera->GetRot().y+ rot.y)/*+ cosf()*/ * m_fSpeed;
 
 		//g_player.GetRot().y = (pCamera->GetRot().y);
 	}
