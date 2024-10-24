@@ -19,6 +19,9 @@
     <Filter Include="Car">
       <UniqueIdentifier>{0e826218-653a-4d42-8bdd-df6e016cbbd0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Save&amp;Road">
+      <UniqueIdentifier>{d450e446-aa6b-49fe-8881-261ddacd9b49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -114,6 +117,12 @@
     <ClCompile Include="car_player.cpp">
       <Filter>Car</Filter>
     </ClCompile>
+    <ClCompile Include="save.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="road.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -208,6 +217,12 @@
     </ClInclude>
     <ClInclude Include="car_player.h">
       <Filter>Car</Filter>
+    </ClInclude>
+    <ClInclude Include="save.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="road.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

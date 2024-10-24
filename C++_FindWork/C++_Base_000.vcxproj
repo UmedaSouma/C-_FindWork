@@ -54,6 +54,8 @@
     <ClCompile Include="player3D.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="result.cpp" />
+    <ClCompile Include="road.cpp" />
+    <ClCompile Include="save.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="search.cpp" />
     <ClCompile Include="text.cpp" />
@@ -87,6 +89,8 @@
     <ClInclude Include="player3D.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="result.h" />
+    <ClInclude Include="road.h" />
+    <ClInclude Include="save.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="search.h" />
     <ClInclude Include="text.h" />
