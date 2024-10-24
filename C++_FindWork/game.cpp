@@ -16,6 +16,8 @@
 #include "billboard.h"
 #include "car_normal.h"
 
+
+CParamStorage* CGame::pParamStorage = new CParamStorage[CParamStorage::CAR_MAX];
 int CGame::m_nDelayEnd = 0; // “|‚µ‚Ä‚©‚çƒŠƒUƒ‹ƒg‚É‚È‚é‚Ü‚Å
 bool CGame::m_Delay = false;
 //===========================================================================================================
@@ -84,12 +86,9 @@ void CGame::SetInitUI()
 //===========================================================================================================
 void CGame::Uninit()
 {
-	CScene::Uninit();
-}
+	delete[] pParamStorage;
 
-void CGame::UpdateDelay()
-{
-	
+	CScene::Uninit();
 }
 
 //===========================================================================================================

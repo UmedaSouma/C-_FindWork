@@ -24,7 +24,7 @@ CCar::CCar()
 		m_Param.fMaxSpeed[i] = MAX_SPEED[i];
 	}
 
-	m_type = CAR_NORMAL;
+	m_type = CParamStorage::CAR_NORMAL;
 }
 
 //========================================================================================================================

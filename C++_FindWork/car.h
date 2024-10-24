@@ -9,6 +9,7 @@
 #define _CAR_H_
 #include "main.h"
 #include "model.h"
+#include "param_storage.h"
 
 class CCar:public CModel
 {
@@ -36,19 +37,16 @@ private:
 	
 	//================================================================
 
-public:
-	//======================================
-	// 車のタイプ
-	//======================================
+	// この車の運転手のタイプ
 	typedef enum
 	{
-		CAR_NORMAL = 0,
-		CAR_TRACK,
-		CAR_SPORTS,
-		CAR_MAX
-	}TYPE;
+		DRIVER_NONE = 0,
+		DRIVER_PLAYER,		// プレイヤー
+		DRIVER_ENEMY,		// CPU
+		DRIVER_MAX
+	}DRIVER_TYPE;
 
-
+public:
 	CCar();
 	~CCar()override;
 	HRESULT Init()override;	// 初期設定
@@ -58,21 +56,8 @@ public:
 
 	static CCar* Create();   // 生成処理
 private:
-	//===================================================
-	// 車のパラメーター
-	//===================================================
-	struct Param
-	{
-		int nMaxLife;		// 最大体力
-		int nLife;			// 体力
-		int nGearNum;		// ギア数
-		float fWeight;		// 車の重さ
-		float fBending;		// 曲がりやすさ
-		float fMaxSpeed[5];	// 最大スピード
-	};
-
-	TYPE m_type;	// 車のタイプ
-	Param m_Param;	// パラメーターを扱う変数
+	CParamStorage::TYPE m_type;	// 車のタイプ
+	CParamStorage::Param m_Param;	// パラメーターを扱う変数
 public:
 
 	//================================================
@@ -104,8 +89,8 @@ public:
 	int GetLife() { return m_Param.nLife; }
 
 	//-- タイプ --
-	void SetType(TYPE type) { m_type = type; }
-	TYPE GetType() { return m_type; }
+	void SetType(CParamStorage::TYPE type) { m_type = type; }
+	CParamStorage::TYPE GetType() { return m_type; }
 };
 
 #endif // !CAR_H_
