@@ -52,6 +52,8 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="player3D.cpp" />
+    <ClCompile Include="player_controller.cpp" />
+    <ClCompile Include="player_manager.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="result.cpp" />
     <ClCompile Include="road.cpp" />
@@ -87,6 +89,8 @@
     <ClInclude Include="param_storage.h" />
     <ClInclude Include="Pch.h" />
     <ClInclude Include="player3D.h" />
+    <ClInclude Include="player_controller.h" />
+    <ClInclude Include="player_manager.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="result.h" />
     <ClInclude Include="road.h" />
