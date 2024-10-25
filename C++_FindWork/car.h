@@ -89,8 +89,8 @@ public:
 	int GetLife() { return m_Param.nLife; }
 
 	//-- É^ÉCÉv --
-	void SetType(CParamStorage::TYPE type) { m_type = type; }
-	CParamStorage::TYPE GetType() { return m_type; }
+	void SetTypeCar(CParamStorage::TYPE type) { m_type = type; }
+	CParamStorage::TYPE GetTypeCar() { return m_type; }
 };
 
 #endif // !CAR_H_

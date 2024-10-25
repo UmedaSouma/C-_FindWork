@@ -18,7 +18,7 @@ CCarNormal::CCarNormal()
 	SetMaxLife(MAX_LIFE);
 	SetLife(GetMaxLife());
 
-	SetType(CParamStorage::CAR_NORMAL);
+	SetTypeCar(CParamStorage::CAR_NORMAL);
 }
 
 //========================================================================================================================
