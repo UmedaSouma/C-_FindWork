@@ -16,16 +16,15 @@ public:
 	typedef enum
 	{
 		NONE=0,
-		ENEMY,			// 敵
-		ENEMY_MESSE,	// 使役敵
-		ENEMY_BOSS,
-		PLAYER,			// プレイヤー
-		BLOCK,			// ブロック
-		MODEL,			// モデル
-		FADE,			// フェード
-		PARTICLE,		// パーティクル
-		BASE,
-		SWORD,			// 剣
+		PLAYER,		// プレイヤー
+		CAR,		// 車
+		CAR_PLAYER,	// プレイヤーの車
+		CAR_ENEMY,	// プレイヤーの車
+		ENEMY,		// 敵
+		BLOCK,		// ブロック
+		FIELD,		// フィールド
+		FADE,		// フェード
+		MODEL,		// モデル
 		MAX
 	}TYPE;
 
