@@ -77,7 +77,7 @@ int CTexture::Regist(const char* pTexturename)
 			}
 			else
 			{// テクスチャがデータに存在していない
-				assert(false,"テクスチャが存在していないよ！");
+				assert(false && "テクスチャが存在してないよ！！");
 			}
 		}
 		else if(!strcmp(pTexturename, m_pTexStorage[nCntTex]))
