@@ -55,6 +55,16 @@ public:
 	void Draw()override;	// 描画
 
 	static CCar* Create();   // 生成処理
+
+	//-------------------------------------------------------
+	// 車のアクション
+	//-------------------------------------------------------
+	void ActionAccele();	// アクセル(加速
+	void ActionBrake();		// ブレーキ(減速
+	void ActionBend_R();	// 曲がる
+	void ActionBend_L();	// 曲がる
+	void ActionBoost();		// ブースト(急加速
+
 private:
 	CParamStorage::TYPE m_type;	// 車のタイプ
 	CParamStorage::Param m_Param;	// パラメーターを扱う変数
