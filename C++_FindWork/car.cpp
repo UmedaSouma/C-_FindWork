@@ -14,12 +14,11 @@ CCar::CCar()
 	// パラメーターの設定
 
 	m_Param.fWeight = MAX_WEIGHT;
-	m_Param.nGearNum = MAX_GEAR;
+	m_Param.nMaxGear = MAX_GEAR;
 	m_Param.fBending = MAX_BENDING;
 	m_Param.nMaxLife = MAX_LIFE;
-	m_Param.nLife = m_Param.nMaxLife;
 	
-	for (int i = 0; i < m_Param.nGearNum; i++)
+	for (int i = 0; i < m_Param.nMaxGear; i++)
 	{
 		m_Param.fMaxSpeed[i] = MAX_SPEED[i];
 	}
@@ -73,7 +72,11 @@ void CCar::Draw()
 //===========================================================================================================
 void CCar::ActionAccele()
 {
+	D3DXVECTOR3 move = GetMove();
+
 	
+
+	SetMove({ 0.0f,0.0f,0.0f });
 }
 
 //===========================================================================================================
