@@ -7,6 +7,7 @@
 #include "main.h"
 #include "scene.h"
 #include "param_storage.h"
+#include "player_manager.h"
 
 class CGame :public CScene
 {
@@ -24,6 +25,6 @@ private:
 	static bool m_Delay;
 
 public:
-	static CParamStorage* pParamStorage;
-
+	static CParamStorage* m_pParamStorage;
+	static CPlayerManager* m_pPlayerManager;
 };

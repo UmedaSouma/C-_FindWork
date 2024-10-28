@@ -14,10 +14,12 @@
 #include "block3D.h"
 #include "item.h"
 #include "billboard.h"
-#include "car_normal.h"
+#include "car_player.h"
+#include "param_storage.h"
+#include "player_manager.h"
 
-
-CParamStorage* CGame::pParamStorage = new CParamStorage[CParamStorage::CAR_MAX];
+CParamStorage* CGame::m_pParamStorage = new CParamStorage[CParamStorage::CAR_MAX];
+CPlayerManager* CGame::m_pPlayerManager = new CPlayerManager;
 int CGame::m_nDelayEnd = 0; // 倒してからリザルトになるまで
 bool CGame::m_Delay = false;
 //===========================================================================================================
@@ -53,7 +55,10 @@ HRESULT CGame::Init()
 
 	CBlock3D::Create({ 10.0f,50.0f,20.0f });
 
-	CCarNormal::Create({ 10.0f,50.0f,30.0f });
+
+
+	// プレイヤー管理クラス作成
+	m_pPlayerManager->Init();
 
 	//CBillboard::Create({ 30.0f,5.0f,0.0f });
 
@@ -86,7 +91,19 @@ void CGame::SetInitUI()
 //===========================================================================================================
 void CGame::Uninit()
 {
-	delete[] pParamStorage;
+	if (m_pParamStorage != nullptr)
+	{
+		// パラメーターの保管庫を削除
+		delete[] m_pParamStorage;
+		m_pParamStorage = nullptr;
+	}
+
+	if (m_pPlayerManager != nullptr)
+	{
+		// プレイヤー管理を削除
+		delete m_pPlayerManager;
+		m_pPlayerManager = nullptr;
+	}
 
 	CScene::Uninit();
 }
@@ -116,6 +133,8 @@ void CGame::Update()
 	}
 
 #endif // _DEBUG
+
+	m_pPlayerManager->Update();
 
 	CScene::Update();
 }
