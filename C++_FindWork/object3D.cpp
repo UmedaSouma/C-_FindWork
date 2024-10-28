@@ -14,6 +14,7 @@ CObject3D::CObject3D(int nPriority) : CObject(nPriority)
 , m_length(0.0f)
 , m_Angle(0.0f)
 , m_normalize{ 0.0f,0.0f,0.0f }
+, m_move{ 0.0f,0.0f,0.0f }
 {
 }
 
