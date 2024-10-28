@@ -13,7 +13,7 @@ CParamStorage::CParamStorage()
 	m_Param.nMaxGear = 0;
 	m_Param.nMaxLife = 0;
 	
-	for (int i = 0; i < MAX_GEAR; i++)
+	for (int i = 0; i < MAX_WORLD_GEAR; i++)
 	{
 		m_Param.fMaxSpeed[i] = 0.0f;
 	}
