@@ -40,7 +40,7 @@ void CPlayerManager::Update()
 	if (m_pCar != nullptr)
 	{
 		CCamera* pCamera = CManager::GetCamera();	// camera ‚ðŽ‚Á‚Ä‚­‚é
-		pCamera->SetTargetPos(m_pCar->GetPos());			// camera ‚É playerpos ‚ð“ü‚ê‚é
+		pCamera->SetTargetPos(m_pCar->GetPos());	// camera ‚É playerpos ‚ð“ü‚ê‚é
 
 
 
