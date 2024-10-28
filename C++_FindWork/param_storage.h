@@ -35,7 +35,7 @@ public:
 		int nMaxGear;		// ギア数
 		float fWeight;		// 車の重さ
 		float fBending;		// 曲がりやすさ
-		float fMaxSpeed[5];	// 最大スピード
+		float fMaxSpeed[MAX_WORLD_GEAR];	// 最大スピード
 	};
 
 	CParamStorage();
