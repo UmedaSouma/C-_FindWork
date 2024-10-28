@@ -33,6 +33,8 @@ public:
 	D3DXVECTOR3& GetPos();
 	void SetSize(D3DXVECTOR3 size);
 	D3DXVECTOR3& GetSize();
+	void SetMove(D3DXVECTOR3 move);
+	D3DXVECTOR3& GetMove();
 	void BindTexture(LPDIRECT3DTEXTURE9 pTex);
 	void SetRot(D3DXVECTOR3 rot) { m_rot = rot; }
 	D3DXVECTOR3 &GetRot() { return m_rot; }
@@ -53,6 +55,7 @@ private:
 	D3DXVECTOR3 m_pos;
 	D3DXVECTOR3 m_rot;
 	D3DXVECTOR3 m_size;
+	D3DXVECTOR3 m_move;
 	D3DXMATRIX m_mtxWorld;
 	D3DXVECTOR3 m_normalize;
 
