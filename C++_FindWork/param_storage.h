@@ -13,6 +13,8 @@
 class CParamStorage
 {
 public:
+
+#define MAX_GEAR	(10)	// ギア最大値
 	//======================================
 	// 車のタイプ
 	//======================================
@@ -30,8 +32,7 @@ public:
 	struct Param
 	{
 		int nMaxLife;		// 最大体力
-		int nLife;			// 体力
-		int nGearNum;		// ギア数
+		int nMaxGear;		// ギア数
 		float fWeight;		// 車の重さ
 		float fBending;		// 曲がりやすさ
 		float fMaxSpeed[5];	// 最大スピード
@@ -54,8 +55,8 @@ public:
 	float GetWeight() { return m_Param.fWeight; }
 
 	//-- ギアの数 --
-	void SetGearNum(int num) { m_Param.nGearNum = num; }
-	int GetGearNum() { return m_Param.nGearNum; }
+	void SetGearMax(int num) { m_Param.nMaxGear = num; }
+	int GetGearMax() { return m_Param.nMaxGear; }
 
 	//-- 曲がりやすさ --
 	void SetBending(float benging) { m_Param.fBending = benging; }
@@ -68,10 +69,6 @@ public:
 	//-- 最大体力 --
 	void SetMaxLife(int maxlife) { m_Param.nMaxLife = maxlife; }
 	int GetMaxLife() { return m_Param.nMaxLife; }
-
-	//-- 体力 --
-	void SetLife(int life) { m_Param.nLife = life; }
-	int GetLife() { return m_Param.nLife; }
 
 	//-- タイプ --
 	void SetType(TYPE type) { m_type = type; }
