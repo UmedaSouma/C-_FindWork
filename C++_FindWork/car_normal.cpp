@@ -16,7 +16,6 @@ CCarNormal::CCarNormal()
 	SetGearNum(MAX_GEAR);
 	SetBending(MAX_BENDING);
 	SetMaxLife(MAX_LIFE);
-	SetLife(GetMaxLife());
 
 	SetTypeCar(CParamStorage::CAR_NORMAL);
 }
