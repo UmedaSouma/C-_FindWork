@@ -44,7 +44,7 @@ HRESULT CCamera::Init()
 	m_rot = D3DXVECTOR3(-1.0f, 0.0f, 0.0f);
 
 	m_fDis = 100.0f;
-	m_follow = 0.08f;
+	m_follow = 1.0f;
 
 	return S_OK;
 }
@@ -62,19 +62,25 @@ void CCamera::Uninit()
 //======================================================================================================
 void CCamera::Update()
 {
+
+	
+	//m_posR = m_targetpos;
+
+	// カメラ視点調整
 	m_posV =
 	{
 		sinf(m_rot.x) * sinf(m_rot.y) * m_fDis,
-		/*cosf(m_rot.x) * m_fDis,*/50.0f,
+		/*cosf(m_rot.x) * m_fDis,*/20.0f,
 		sinf(m_rot.x) * cosf(m_rot.y) * m_fDis
 	};
 
+	// カメラを注視点に合わせる
 	m_posV += m_posR;
 
-	m_posR.x += (m_targetpos.x - m_posR.x) * m_follow*2.0f;
-	m_posR.y += (m_targetpos.y - m_posR.y) * m_follow*0.5f;
+	// follow の値を変更することでカメラを遅らせることができる
+	m_posR.x += (m_targetpos.x - m_posR.x) * m_follow;
+	m_posR.y += (m_targetpos.y - m_posR.y) * m_follow;
 	m_posR.z += (m_targetpos.z - m_posR.z) * m_follow;
-
 
 	// カメラが一周すると角度をリセットする
 	if (m_rot.y >= D3DX_PI * 2 || m_rot.y <= -D3DX_PI * 2)
