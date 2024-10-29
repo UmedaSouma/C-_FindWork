@@ -3,6 +3,7 @@
 #include "scene.h"
 #include "manager.h"
 #include "search.h"
+#include "car_player.h"
 
 // Ã“Iƒƒ“ƒo•Ï”‚Ì‰Šú‰»
 CText* CRenderer::m_pText = nullptr;
@@ -199,7 +200,16 @@ void CRenderer::Draw()
 //===========================================================================================================
 void CRenderer::DebugPrint(char& pStr, char& pStr2)
 {
+	CCarPlayer* pCarPlayer = nullptr;
 
+	pCarPlayer = CSearch::SearchObject(pCarPlayer, CObject::TYPE::CAR_PLAYER);
+
+	if (pCarPlayer == nullptr)
+	{
+		return;
+	}
+
+	sprintf(&pStr, "ŽÔ‚ÌMOVE : %f", pCarPlayer->GetMove().z);
 }
 
 //===========================================================================================================
