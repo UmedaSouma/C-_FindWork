@@ -43,7 +43,7 @@ HRESULT CGame::Init()
 {
 	CScene::Init();
 
-	CPlayer3D::Create({ 0.0f,0.0f,0.0f });
+	//CPlayer3D::Create({ 0.0f,0.0f,0.0f });
 
 	for (int Vertical = 0; Vertical < 5; Vertical++)
 	{
