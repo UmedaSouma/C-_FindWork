@@ -28,7 +28,6 @@ public:
 private:
 	bool m_bGravity;		// true だったら重力が付く
 	D3DXVECTOR3 m_move;		// 移動値
-	D3DXVECTOR3 m_oldmove;		// 移動値
 
 
 public:

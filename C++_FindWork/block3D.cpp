@@ -23,6 +23,8 @@ HRESULT CBlock3D::Init()
 	CModel::Init();
 
 	SetModel("data\\model\\block_block001.x");
+	SetScale({ 10.0f,1.0f,10.0f });
+
 
 	SetSize({ MAX_SIZE+5.0f ,MAX_SIZE ,MAX_SIZE });
 

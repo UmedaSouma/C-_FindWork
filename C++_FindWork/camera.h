@@ -30,6 +30,7 @@ public:
 	void UpdateInput();
 	void SetCamera();	// ƒJƒƒ‰‚Ìİ’è
 	void SetTargetPos(D3DXVECTOR3 pos);
+	void SetRot(D3DXVECTOR3 rot) { m_rot = rot; }
 	void SetShake(int frame, float strength);	// ƒJƒƒ‰—h‚ê‚Ìˆ—
 	
 private:
@@ -38,6 +39,7 @@ private:
 	D3DXVECTOR3 m_targetpos;
 	D3DXVECTOR3 m_vecU;
 	D3DXVECTOR3 m_rot;
+	D3DXVECTOR3 m_targetrot;
 	D3DXMATRIX m_mtxProjection;
 	D3DXMATRIX m_mtxView;
 	float m_fDis;

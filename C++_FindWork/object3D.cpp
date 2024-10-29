@@ -9,6 +9,7 @@ CObject3D::CObject3D(int nPriority) : CObject(nPriority)
 , m_pos{ 0.0f, 0.0f, 0.0f }
 , m_rot{ 0.0f,0.0f,0.0f }
 , m_size{ 0.0f,0.0f,0.0f }
+, m_scale{ 1.0f,1.0f,1.0f }
 , m_pVtxBuff(nullptr)
 , m_pVtxTexture(nullptr)
 , m_length(0.0f)
@@ -178,6 +179,10 @@ void CObject3D::InitMatrix()
 void CObject3D::ScaleMatrix()
 {
 	D3DXMATRIX mtxScale;
+
+	// ÉXÉPÅ[ÉãÇîΩâf
+	D3DXMatrixScaling(&mtxScale, m_scale.x, m_scale.y, m_scale.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxScale);
 }
 
 //===========================================================================================================

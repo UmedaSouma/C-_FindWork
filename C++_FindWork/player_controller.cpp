@@ -40,6 +40,16 @@ void CPlayerController::Update(CCarPlayer* pCar)
 			pCar->ActionBrake();
 		}
 
+		if (keyboard->GetPress(DIK_D))
+		{
+			pCar->ActionBend_R();
+		}
+
+		if (keyboard->GetPress(DIK_A))
+		{
+			pCar->ActionBend_L();
+		}
+
 
 		//if()
 

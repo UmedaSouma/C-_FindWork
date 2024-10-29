@@ -17,6 +17,7 @@ CCamera::CCamera() :
 	, m_rot{ 0.0f,0.0f,0.0f }			// 向き
 	, m_vecU{ 0.0f,0.0f,0.0f }			// vectorUP 
 	, m_targetpos{ 0.0f,0.0f,0.0f }		// ターゲット
+	, m_targetrot{ 0.0f,0.0f,0.0f }
 	, m_fDis(0)							// 視点と注視点の距離
 	, nCntFollow(0)						// カメラの追いつく間隔
 	, m_fStrength(0.0f)
@@ -81,10 +82,17 @@ void CCamera::Update()
 	m_posR.y += (m_targetpos.y - m_posR.y) * m_follow;
 	m_posR.z += (m_targetpos.z - m_posR.z) * m_follow;
 
+	//// follow の値を変更することでカメラを遅らせることができる
+	//m_rot.y += (m_targetrot.y - m_rot.y) * 0.1f;
+
 	// カメラが一周すると角度をリセットする
 	if (m_rot.y >= D3DX_PI * 2 || m_rot.y <= -D3DX_PI * 2)
 	{
 		m_rot.y = 0.0f;
+	}
+	if (m_targetrot.y >= D3DX_PI * 2 || m_targetrot.y <= -D3DX_PI * 2)
+	{
+		m_targetrot.y = 0.0f;
 	}
 	
 	UpdateInput();
@@ -140,7 +148,7 @@ void CCamera::SetCamera()
 		D3DXToRadian(45.0f),
 		(float)SCREEN_WIDTH / (float)SCREEN_HEIGHT,
 		10.0f,
-		1000.0f);
+		1000000.0f);
 
 	CInputKeyBoard* keyboard = CManager::GetKeyboard();
 

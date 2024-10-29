@@ -201,15 +201,23 @@ void CRenderer::Draw()
 void CRenderer::DebugPrint(char& pStr, char& pStr2)
 {
 	CCarPlayer* pCarPlayer = nullptr;
+	CCamera* pCamera = CManager::GetCamera();
 
 	pCarPlayer = CSearch::SearchObject(pCarPlayer, CObject::TYPE::CAR_PLAYER);
 
-	if (pCarPlayer == nullptr)
+	if (pCarPlayer == nullptr || pCamera == nullptr)
 	{
 		return;
 	}
 
-	sprintf(&pStr, "ŽÔ‚ÌMOVE : %f", pCarPlayer->GetMove().z);
+	sprintf(&pStr
+		, "ŽÔ‚ÌˆÚ“®—Ê : %f"
+		"\nŽÔ‚ÌŒü‚« : %f"
+		"\nƒJƒƒ‰‚ÌŒü‚« : x = %f , y = %f ,  z = %f"
+		, pCarPlayer->GetMove().z
+		, pCarPlayer->GetRot().y
+		,pCamera->GetRot().x,pCamera->GetRot().y,pCamera->GetRot().z
+	);
 }
 
 //===========================================================================================================

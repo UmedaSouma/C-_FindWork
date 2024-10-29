@@ -45,11 +45,11 @@ HRESULT CGame::Init()
 
 	//CPlayer3D::Create({ 0.0f,0.0f,0.0f });
 
-	for (int Vertical = 0; Vertical < 5; Vertical++)
+	for (int Vertical = 0; Vertical < 50; Vertical++)
 	{
-		for (int Horizon = 0; Horizon < 100; Horizon++)
+		for (int Horizon = 0; Horizon < 50; Horizon++)
 		{
-			CBlock3D::Create({ 0.0f + (Vertical * 20.0f),-30.0f,0.0f + (Horizon * 20.0f) });
+			CBlock3D::Create({ 0.0f + (Vertical * 20.0f*10.0f),-30.0f,0.0f + (Horizon * 20.0f*10.0f) });
 		}
 	}
 

@@ -51,10 +51,7 @@ void CActor::Update()
 	//m_move.x += (0.0f - m_move.x) * 0.1f;
 	//m_move.z += (0.0f - m_move.z) * 0.1f;
 
-	if (m_oldmove.z >= m_move.z)
-	{
-		m_move.z += -1 * (m_move.z * 0.01f);
-	}
+	
 
 	pos.y += m_move.y;
 	pos.x += m_move.x;
@@ -69,7 +66,7 @@ void CActor::Update()
 		Gravity();
 	}
 
-	m_oldmove = m_move;
+	
 }
 
 //========================================================================================================================
