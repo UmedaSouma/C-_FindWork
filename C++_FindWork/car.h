@@ -8,10 +8,10 @@
 #ifndef _CAR_H_
 #define _CAR_H_
 #include "main.h"
-#include "model.h"
 #include "param_storage.h"
+#include "actor.h"
 
-class CCar:public CModel
+class CCar:public CActor
 {
 private:
 
@@ -63,6 +63,8 @@ public:
 	void Uninit()override;	// 終了
 	void Update()override;	// 更新
 	void Draw()override;	// 描画
+
+	void InitType();		// タイプごとの初期設定
 
 	static CCar* Create();   // 生成処理
 
