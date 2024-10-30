@@ -17,13 +17,14 @@ CCar::CCar()
 	m_Param.nMaxGear = MAX_GEAR;
 	m_Param.fBending = MAX_BENDING;
 	m_Param.nMaxLife = MAX_LIFE;
-	
+
 	for (int i = 0; i < m_Param.nMaxGear; i++)
 	{
 		m_Param.fMaxSpeed[i] = MAX_SPEED[i];
 	}
 
 	m_type = CParamStorage::CAR_NORMAL;
+	m_fAccumulationSpeed = 0.0f;
 }
 
 //========================================================================================================================
@@ -59,15 +60,33 @@ void CCar::Uninit()
 void CCar::Update()
 {
 	D3DXVECTOR3 move = GetMove();
+	D3DXVECTOR3 copymove = GetMove();
+	D3DXVECTOR3 normalize = { 1.0f,1.0f,1.0f };
+	//m_fAccumulationSpeed = move.x + move.z;
 
+	if (move.x < 0.0f)
+	{
+		normalize.x = -1;
+	}
+	if (move.z < 0.0f)
+	{
+		normalize.z = -1;
+	}
+
+	copymove.x= copymove.x* normalize.x;
+	copymove.z= copymove.z* normalize.z;
+
+	m_fAccumulationSpeed = sqrtf(copymove.x * copymove.x + copymove.z * copymove.z);
+	
 	// 速度が過去の速度より上がっていなかったら
 	if (m_oldmove.z >= move.z)
 	{
-		move.z += -1 * (move.z * 0.01f);
 		move.x += -1 * (move.x * 0.01f);
+		move.z += -1 * (move.z * 0.01f);
 	}
 
 	m_oldmove = move;
+
 
 	SetMove(move);
 
@@ -93,7 +112,6 @@ void CCar::InitType()
 
 		SetModel("data\\model\\car_normal_000.x");	// モデルを設定
 
-
 		break;
 
 	case CParamStorage::CAR_TRACK:
@@ -101,6 +119,8 @@ void CCar::InitType()
 		break;
 
 	case CParamStorage::CAR_SPORTS:
+
+		SetModel("data\\model\\car_sample.x");	// モデルを設定
 
 		break;
 
@@ -118,9 +138,11 @@ void CCar::ActionAccele()
 
 	if (move.z < 150.0f)
 	{
-		move.x += sinf(/*pCamera->GetRot().y+*/ GetRot().y)/*+ sinf()*/ * 0.5f;
-		move.z += cosf(/*pCamera->GetRot().y+*/ GetRot().y)/*+ cosf()*/ * 0.5f;
+		move.x += sinf(GetRot().y) * 0.5f;
+		move.z += cosf(GetRot().y) * 0.5f;
 		//move.z += 0.5f;
+
+		//m_fAccumulationSpeed += 0.5f;
 	}
 
 	SetMove({ move.x,0.0f,move.z });
@@ -133,9 +155,12 @@ void CCar::ActionBrake()
 {
 	D3DXVECTOR3 move = GetMove();
 
-	move.z -= 0.1f;
+	move.x += sinf(GetRot().y) * -0.1f;
+	move.z += cosf(GetRot().y) * -0.1f;
 
-	SetMove({ 0.0f,0.0f,move.z });
+	m_fAccumulationSpeed += -0.1f;
+
+	SetMove({ move.x,0.0f,move.z });
 }
 
 //===========================================================================================================

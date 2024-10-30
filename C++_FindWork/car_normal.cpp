@@ -34,7 +34,7 @@ HRESULT CCarNormal::Init()
 {
 	CCar::Init();
 
-	SetModel("data\\model\\car_normal_000.x");
+	//SetModel("data\\model\\car_sample.x");
 
 	return S_OK;
 }

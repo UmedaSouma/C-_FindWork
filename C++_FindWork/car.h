@@ -81,6 +81,8 @@ private:
 	CParamStorage::TYPE m_type;	// 車のタイプ
 	CParamStorage::Param m_Param;	// パラメーターを扱う変数
 
+	float m_fAccumulationSpeed;	// 蓄積スピード(現在のスピード
+
 	CurrParam CurrParam;	// 現在のパラメーター
 
 	D3DXVECTOR3 m_oldmove;		// 過去の移動値
@@ -113,6 +115,10 @@ public:
 	//-- タイプ --
 	void SetTypeCar(CParamStorage::TYPE type) { m_type = type; }
 	CParamStorage::TYPE GetTypeCar() { return m_type; }
+
+	//-- 蓄積スピード --
+	void SetAccumulationSpeed(float speed) { m_fAccumulationSpeed = speed; }
+	float GetAccumulationSpeed() { return m_fAccumulationSpeed; }
 };
 
 #endif // !CAR_H_

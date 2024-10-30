@@ -12,7 +12,9 @@
 //===========================================================================================================
 // コンストラクタ
 //===========================================================================================================
-CPlayerManager::CPlayerManager()
+CPlayerManager::CPlayerManager() :
+	m_pCar(nullptr)
+	, m_pController(nullptr)
 {
 }
 
@@ -28,8 +30,11 @@ CPlayerManager::~CPlayerManager()
 //===========================================================================================================
 void CPlayerManager::Init()
 {
-	// 車を作成
-	m_pCar = CCarPlayer::Create(CParamStorage::CAR_NORMAL);
+	if (m_pCar == nullptr)
+	{
+		// 車を作成
+		m_pCar = CCarPlayer::Create(CParamStorage::CAR_NORMAL);
+	}
 
 	m_pController = new CPlayerController;
 	m_pController->Init();
@@ -56,8 +61,6 @@ void CPlayerManager::Update()
 	{
 		CCamera* pCamera = CManager::GetCamera();	// camera を持ってくる
 		pCamera->SetTargetPos(m_pCar->GetPos());	// camera に playerpos を入れる
-
-
 
 		m_pController->Update(m_pCar);
 	}

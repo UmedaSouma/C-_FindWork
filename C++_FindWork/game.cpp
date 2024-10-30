@@ -15,11 +15,12 @@
 #include "item.h"
 #include "billboard.h"
 #include "car_player.h"
+#include "car_enemy.h"
 #include "param_storage.h"
 #include "player_manager.h"
 
-CParamStorage* CGame::m_pParamStorage = new CParamStorage[CParamStorage::CAR_MAX];
-CPlayerManager* CGame::m_pPlayerManager = new CPlayerManager;
+CParamStorage* CGame::m_pParamStorage = nullptr;
+CPlayerManager* CGame::m_pPlayerManager = nullptr;
 int CGame::m_nDelayEnd = 0; // 倒してからリザルトになるまで
 bool CGame::m_Delay = false;
 //===========================================================================================================
@@ -41,6 +42,7 @@ CGame::~CGame()
 //===========================================================================================================
 HRESULT CGame::Init()
 {
+
 	CScene::Init();
 
 	//CPlayer3D::Create({ 0.0f,0.0f,0.0f });
@@ -55,9 +57,13 @@ HRESULT CGame::Init()
 
 	CBlock3D::Create({ 10.0f,50.0f,20.0f });
 
+	CCarEnemy::Create(CParamStorage::CAR_NORMAL, { 0.0f,0.0f,100.0f });
 
+	// パラメーター管理クラス作成
+	m_pParamStorage = new CParamStorage[CParamStorage::CAR_MAX];
 
 	// プレイヤー管理クラス作成
+	m_pPlayerManager = new CPlayerManager;
 	m_pPlayerManager->Init();
 
 	//CBillboard::Create({ 30.0f,5.0f,0.0f });

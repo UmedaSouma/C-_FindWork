@@ -20,7 +20,7 @@ public:
 	void Update()override;	// XV
 	void Draw()override;	// •`‰æ
 
-	static CCarEnemy* Create();   // ¶¬ˆ—
+	static CCarEnemy* Create(CParamStorage::TYPE cartype,D3DXVECTOR3 pos);   // ¶¬ˆ—
 private:
 
 };

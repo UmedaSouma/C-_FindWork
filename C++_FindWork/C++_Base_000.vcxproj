@@ -27,6 +27,7 @@
     <ClCompile Include="car_enemy.cpp" />
     <ClCompile Include="car_normal.cpp" />
     <ClCompile Include="car_player.cpp" />
+    <ClCompile Include="collision.cpp" />
     <ClCompile Include="editor_param.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="fieldmanager.cpp" />
@@ -75,6 +76,7 @@
     <ClInclude Include="car_enemy.h" />
     <ClInclude Include="car_normal.h" />
     <ClInclude Include="car_player.h" />
+    <ClInclude Include="collision.h" />
     <ClInclude Include="editor_param.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="fieldmanager.h" />
