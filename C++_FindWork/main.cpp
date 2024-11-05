@@ -85,7 +85,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hInstancePrev*
 
 #if _DEBUG
 #else
-	CMain::ToggleFullscreen(hWnd);
+	//CMain::ToggleFullscreen(hWnd);
 #endif
 
 	// メッセージループ

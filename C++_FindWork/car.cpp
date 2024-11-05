@@ -25,6 +25,7 @@ CCar::CCar()
 
 	m_type = CParamStorage::CAR_NORMAL;
 	m_fAccumulationSpeed = 0.0f;
+	m_fOldSpeed = 0.0f;
 }
 
 //========================================================================================================================
@@ -59,35 +60,31 @@ void CCar::Uninit()
 //========================================================================================================================
 void CCar::Update()
 {
-	D3DXVECTOR3 move = GetMove();
-	D3DXVECTOR3 copymove = GetMove();
-	D3DXVECTOR3 normalize = { 1.0f,1.0f,1.0f };
-	//m_fAccumulationSpeed = move.x + move.z;
+	D3DXVECTOR3 pos = GetPos();		// 位置
+	D3DXVECTOR3 move = GetMove();	// 移動値
+	D3DXVECTOR3 rot = GetRot();		// 向き
 
-	if (move.x < 0.0f)
-	{
-		normalize.x = -1;
-	}
-	if (move.z < 0.0f)
-	{
-		normalize.z = -1;
-	}
-
-	copymove.x= copymove.x* normalize.x;
-	copymove.z= copymove.z* normalize.z;
-
-	m_fAccumulationSpeed = sqrtf(copymove.x * copymove.x + copymove.z * copymove.z);
+	// 表示上のスピード設定
+	ViewSetting();
 	
 	// 速度が過去の速度より上がっていなかったら
-	if (m_oldmove.z >= move.z)
-	{
-		move.x += -1 * (move.x * 0.01f);
-		move.z += -1 * (move.z * 0.01f);
+	if (m_fOldSpeed >= m_fAccumulationSpeed)
+	{// だんだん減速する
+		move.x += -1 * ( move.x * 0.01f);
+		move.z += -1 * ( move.z * 0.01f);
 	}
 
+	// 位置を設定
+	pos.y += move.y;
+	pos.x += sinf(GetRot().y) * move.x;
+	pos.z += cosf(GetRot().y) * move.z;
+	SetPos(pos);
+
+
+	// 移動値を保存
 	m_oldmove = move;
 
-
+	// 移動値を設定
 	SetMove(move);
 
 	CActor::Update();
@@ -130,16 +127,46 @@ void CCar::InitType()
 }
 
 //===========================================================================================================
+// 表示上のスピード設定
+//===========================================================================================================
+void CCar::ViewSetting()
+{
+	D3DXVECTOR3 move = GetMove();
+	D3DXVECTOR3 copymove = GetMove();				// 移動値のコピー
+	D3DXVECTOR3 normalize = { 1.0f,1.0f,1.0f };		// 正規化の変数
+
+
+	// 表示上の数値を整数にする
+	if (move.x < 0.0f)
+	{
+		normalize.x = -1;
+	}
+	if (move.z < 0.0f)
+	{
+		normalize.z = -1;
+	}
+
+	copymove.x = copymove.x * normalize.x;
+	copymove.z = copymove.z * normalize.z;
+
+	// 見た目のスピード
+	m_fAccumulationSpeed = sqrtf(copymove.x * copymove.x + copymove.z * copymove.z);
+
+	// 表示上のスピードを保存
+	m_fOldSpeed = m_fAccumulationSpeed;
+}
+
+//===========================================================================================================
 // アクセル処理
 //===========================================================================================================
 void CCar::ActionAccele()
 {
 	D3DXVECTOR3 move = GetMove();
 
-	if (move.z < 150.0f)
+	if (m_fAccumulationSpeed < 10.0f)
 	{
-		move.x += sinf(GetRot().y) * 0.5f;
-		move.z += cosf(GetRot().y) * 0.5f;
+		move.x += /*sinf(GetRot().y) **/ 0.5f;
+		move.z += /*cosf(GetRot().y) **/ 0.5f;
 		//move.z += 0.5f;
 
 		//m_fAccumulationSpeed += 0.5f;
@@ -155,8 +182,8 @@ void CCar::ActionBrake()
 {
 	D3DXVECTOR3 move = GetMove();
 
-	move.x += sinf(GetRot().y) * -0.1f;
-	move.z += cosf(GetRot().y) * -0.1f;
+	move.x += /*sinf(GetRot().y) **/ -0.1f;
+	move.z += /*cosf(GetRot().y) **/ -0.1f;
 
 	m_fAccumulationSpeed += -0.1f;
 
@@ -170,7 +197,7 @@ void CCar::ActionBend_R()
 {
 	D3DXVECTOR3 rot = GetRot();
 	
-	rot.y += 0.05f;
+	rot.y += 0.01f;
 	SetRot(rot);
 }
 
@@ -181,7 +208,7 @@ void CCar::ActionBend_L()
 {
 	D3DXVECTOR3 rot = GetRot();
 
-	rot.y += -0.05f;
+	rot.y += -0.01f;
 	SetRot(rot);
 }
 

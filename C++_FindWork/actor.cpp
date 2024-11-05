@@ -45,19 +45,7 @@ void CActor::Uninit()
 //========================================================================================================================
 void CActor::Update()
 {
-	D3DXVECTOR3 pos = GetPos();
-
-	// ë¨ìxèôÅXÇ…å∏êä
-	//m_move.x += (0.0f - m_move.x) * 0.1f;
-	//m_move.z += (0.0f - m_move.z) * 0.1f;
-
 	
-
-	pos.y += m_move.y;
-	pos.x += m_move.x;
-	pos.z += m_move.z;
-
-	SetPos(pos);
 
 	CModel::Update();
 

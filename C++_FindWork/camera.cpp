@@ -82,8 +82,11 @@ void CCamera::Update()
 	m_posR.y += (m_targetpos.y - m_posR.y) * m_follow;
 	m_posR.z += (m_targetpos.z - m_posR.z) * m_follow;
 
-	//// follow の値を変更することでカメラを遅らせることができる
-	//m_rot.y += (m_targetrot.y - m_rot.y) * 0.1f;
+	// follow の値を変更することでカメラを遅らせることができる
+	m_rot.y += (m_targetrot.y - m_rot.y) * 0.1f;
+	//m_rot.x = m_targetrot.x;
+	//m_rot.z = m_targetrot.z;
+	//m_rot.z = m_targetrot.y;
 
 	// カメラが一周すると角度をリセットする
 	if (m_rot.y >= D3DX_PI * 2 || m_rot.y <= -D3DX_PI * 2)

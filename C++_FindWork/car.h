@@ -64,6 +64,8 @@ public:
 	void Update()override;	// 更新
 	void Draw()override;	// 描画
 
+	void ViewSetting();
+
 	void InitType();		// タイプごとの初期設定
 
 	static CCar* Create();   // 生成処理
@@ -82,6 +84,7 @@ private:
 	CParamStorage::Param m_Param;	// パラメーターを扱う変数
 
 	float m_fAccumulationSpeed;	// 蓄積スピード(現在のスピード
+	float m_fOldSpeed;	// 蓄積スピード(1フレーム前
 
 	CurrParam CurrParam;	// 現在のパラメーター
 
