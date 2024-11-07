@@ -26,6 +26,7 @@ CCar::CCar()
 	m_type = CParamStorage::CAR_NORMAL;
 	m_fAccumulationSpeed = 0.0f;
 	m_fOldSpeed = 0.0f;
+	m_Action = NONE;
 }
 
 //========================================================================================================================
@@ -60,6 +61,11 @@ void CCar::Uninit()
 //========================================================================================================================
 void CCar::Update()
 {
+	if (m_fAccumulationSpeed<=0.0f)
+	{
+		m_Action = NONE;
+	}
+
 	D3DXVECTOR3 pos = GetPos();		// 位置
 	D3DXVECTOR3 move = GetMove();	// 移動値
 	D3DXVECTOR3 rot = GetRot();		// 向き
@@ -173,6 +179,8 @@ void CCar::ActionAccele()
 	}
 
 	SetMove({ move.x,0.0f,move.z });
+
+	m_Action = ACCELE;
 }
 
 //===========================================================================================================
@@ -188,28 +196,99 @@ void CCar::ActionBrake()
 	m_fAccumulationSpeed += -0.1f;
 
 	SetMove({ move.x,0.0f,move.z });
+
+	m_Action = BRAKE;
 }
 
 //===========================================================================================================
 // カーブ処理
 //===========================================================================================================
-void CCar::ActionBend_R()
+float CCar::ActionBend()
 {
+	float fAddRot = 0.0f;	// 加える回転量
+
+	switch (m_Action)
+	{// 車のスピードと乗算することによって速度が落ちたときに曲がれないようにする
+	case ACCELE:
+		fAddRot += 0.005f * m_fAccumulationSpeed;
+		break;
+
+	case BRAKE:
+		fAddRot += -0.005f * m_fAccumulationSpeed;
+		break;
+
+	default:
+		break;
+	}
+
+	// 回転しすぎないように制御
+	if (fAddRot > 0.01f)
+	{
+		fAddRot = 0.01f;
+	}
+	else if (fAddRot < -0.01f)
+	{
+		fAddRot = -0.01f;
+	}
+
+	return fAddRot;
+}
+
+//===========================================================================================================
+// カーブ処理　右
+//===========================================================================================================
+void CCar::ActionBend_R()
+{	
 	D3DXVECTOR3 rot = GetRot();
-	
-	rot.y += 0.01f;
+	float fAddRot = 0.0f;	// 加える回転量
+
+	fAddRot = ActionBend();
+
+	// ここで車に加える
+	rot.y += fAddRot;
+
 	SetRot(rot);
 }
 
 //===========================================================================================================
-// カーブ処理
+// カーブ処理　左
 //===========================================================================================================
 void CCar::ActionBend_L()
 {
 	D3DXVECTOR3 rot = GetRot();
+	float fAddRot = 0.0f;	// 加える回転量
 
-	rot.y += -0.01f;
+	fAddRot = ActionBend();
+	fAddRot *= -1;
+
+	// ここで車に加える
+	rot.y += fAddRot;
+
 	SetRot(rot);
+
+
+	//if (m_fAccumulationSpeed <= 0.1f)
+	//{
+	//	return;
+	//}
+
+	//D3DXVECTOR3 rot = GetRot();
+
+	//switch (m_Action)
+	//{
+	//case ACCELE:
+	//	rot.y += -0.01f;
+	//	break;
+
+	//case BRAKE:
+	//	rot.y += 0.01f;
+	//	break;
+
+	//default:
+	//	break;
+	//}
+
+	//SetRot(rot);
 }
 
 //===========================================================================================================

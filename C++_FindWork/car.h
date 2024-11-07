@@ -56,6 +56,14 @@ private:
 		DRIVER_MAX
 	}DRIVER_TYPE;
 
+	typedef enum
+	{
+		NONE = 0,
+		ACCELE,
+		BRAKE,
+		MAX
+	}ACTION_STATE;
+
 public:
 	CCar();
 	~CCar()override;
@@ -64,8 +72,7 @@ public:
 	void Update()override;	// 更新
 	void Draw()override;	// 描画
 
-	void ViewSetting();
-
+	void ViewSetting();	// 表示スピードの設定
 	void InitType();		// タイプごとの初期設定
 
 	static CCar* Create();   // 生成処理
@@ -75,20 +82,19 @@ public:
 	//-------------------------------------------------------
 	void ActionAccele();	// アクセル(加速
 	void ActionBrake();		// ブレーキ(減速
-	void ActionBend_R();	// 曲がる
-	void ActionBend_L();	// 曲がる
+	float ActionBend();		// 曲がる
+	void ActionBend_R();	// 右に曲がる
+	void ActionBend_L();	// 左に曲がる
 	void ActionBoost();		// ブースト(急加速
 
 private:
 	CParamStorage::TYPE m_type;	// 車のタイプ
 	CParamStorage::Param m_Param;	// パラメーターを扱う変数
-
 	float m_fAccumulationSpeed;	// 蓄積スピード(現在のスピード
 	float m_fOldSpeed;	// 蓄積スピード(1フレーム前
-
 	CurrParam CurrParam;	// 現在のパラメーター
-
 	D3DXVECTOR3 m_oldmove;		// 過去の移動値
+	ACTION_STATE m_Action;		// 車の現在の状態
 public:
 
 	//================================================
