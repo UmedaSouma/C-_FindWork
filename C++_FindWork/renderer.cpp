@@ -215,10 +215,12 @@ void CRenderer::DebugPrint(char& pStr, char& pStr2)
 		"\n車の向き : %f"
 		"\n車のスピード : %f"
 		"\nカメラの向き : x = %f , y = %f ,  z = %f"
+		"\n現在のギア : %d"
 		, pCarPlayer->GetMove().x, pCarPlayer->GetMove().y, pCarPlayer->GetMove().z
 		, pCarPlayer->GetRot().y
 		, pCarPlayer->GetAccumulationSpeed()
-		,pCamera->GetRot().x,pCamera->GetRot().y,pCamera->GetRot().z
+		, pCamera->GetRot().x, pCamera->GetRot().y, pCamera->GetRot().z
+		, pCarPlayer->GetGear()
 	);
 }
 

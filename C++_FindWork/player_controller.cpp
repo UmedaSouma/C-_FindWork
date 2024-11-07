@@ -64,6 +64,27 @@ void CPlayerController::Update(CCarPlayer* pCar)
 		{
 			pCar->ActionBend_L();
 		}
+
+#ifdef _DEBUG
+
+		// ƒMƒA•ÏX
+		if (keyboard->GetTrigger(DIK_UPARROW))
+		{
+			if (pCar->GetGear() < pCar->GetGearNum() - 1)
+			{
+				pCar->SetGear(pCar->GetGear() + 1);
+			}
+		}
+		else if (keyboard->GetTrigger(DIK_DOWNARROW))
+		{
+			if (pCar->GetGear() > 0)
+			{
+				pCar->SetGear(pCar->GetGear() - 1);
+			}
+		}
+#endif // DEBUG
+
+		
 	}
 
 }

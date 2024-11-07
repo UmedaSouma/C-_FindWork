@@ -34,7 +34,7 @@ private:
 	static const int MAX_LIFE = 150;					// 最大速度
 	static const int MAX_GEAR = 5;						// ギア数
 	inline static const float MAX_WEIGHT = 30.0f;		// 重さ
-	inline static const float MAX_BENDING = 0.1f;		// 曲がりやすさ
+	inline static const float MAX_BENDING = 0.01f;		// 曲がりやすさ
 
 	inline static const float							// ギアごとのスピード
 	MAX_SPEED[MAX_GEAR] = {
@@ -92,7 +92,7 @@ private:
 	CParamStorage::Param m_Param;	// パラメーターを扱う変数
 	float m_fAccumulationSpeed;	// 蓄積スピード(現在のスピード
 	float m_fOldSpeed;	// 蓄積スピード(1フレーム前
-	CurrParam CurrParam;	// 現在のパラメーター
+	CurrParam m_CurrParam;	// 現在のパラメーター
 	D3DXVECTOR3 m_oldmove;		// 過去の移動値
 	ACTION_STATE m_Action;		// 車の現在の状態
 public:
@@ -127,7 +127,11 @@ public:
 
 	//-- 蓄積スピード --
 	void SetAccumulationSpeed(float speed) { m_fAccumulationSpeed = speed; }
-	float GetAccumulationSpeed() { return m_fAccumulationSpeed; }
+	float GetAccumulationSpeed() { return m_CurrParam.Speed; }
+
+	//-- 蓄積スピード --
+	void SetGear(int gear) { m_CurrParam.nGear = gear; }
+	int GetGear() { return m_CurrParam.nGear; }
 };
 
 #endif // !CAR_H_

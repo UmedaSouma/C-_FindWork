@@ -24,9 +24,13 @@ CCar::CCar()
 	}
 
 	m_type = CParamStorage::CAR_NORMAL;
-	m_fAccumulationSpeed = 0.0f;
+
 	m_fOldSpeed = 0.0f;
 	m_Action = NONE;
+
+	m_CurrParam.nGear = 0;
+	m_CurrParam.Speed = 0.0f;
+	m_CurrParam.nLife = 100;
 }
 
 //========================================================================================================================
@@ -61,7 +65,7 @@ void CCar::Uninit()
 //========================================================================================================================
 void CCar::Update()
 {
-	if (m_fAccumulationSpeed<=0.0f)
+	if (m_CurrParam.Speed<=0.0f)
 	{
 		m_Action = NONE;
 	}
@@ -74,7 +78,7 @@ void CCar::Update()
 	ViewSetting();
 	
 	// 速度が過去の速度より上がっていなかったら
-	if (m_fOldSpeed >= m_fAccumulationSpeed)
+	if (m_fOldSpeed >= m_CurrParam.Speed)
 	{// だんだん減速する
 		move.x += -1 * ( move.x * 0.01f);
 		move.z += -1 * ( move.z * 0.01f);
@@ -156,10 +160,10 @@ void CCar::ViewSetting()
 	copymove.z = copymove.z * normalize.z;
 
 	// 見た目のスピード
-	m_fAccumulationSpeed = sqrtf(copymove.x * copymove.x + copymove.z * copymove.z);
+	m_CurrParam.Speed = sqrtf(copymove.x * copymove.x + copymove.z * copymove.z);
 
 	// 表示上のスピードを保存
-	m_fOldSpeed = m_fAccumulationSpeed;
+	m_fOldSpeed = m_CurrParam.Speed;
 }
 
 //===========================================================================================================
@@ -169,13 +173,10 @@ void CCar::ActionAccele()
 {
 	D3DXVECTOR3 move = GetMove();
 
-	if (m_fAccumulationSpeed < 10.0f)
+	if (m_CurrParam.Speed < m_Param.fMaxSpeed[m_CurrParam.nGear])
 	{
-		move.x += /*sinf(GetRot().y) **/ 0.5f;
-		move.z += /*cosf(GetRot().y) **/ 0.5f;
-		//move.z += 0.5f;
-
-		//m_fAccumulationSpeed += 0.5f;
+		move.x += m_Param.fMaxSpeed[0] * 0.025f;
+		move.z += m_Param.fMaxSpeed[0] * 0.025f;
 	}
 
 	SetMove({ move.x,0.0f,move.z });
@@ -190,10 +191,13 @@ void CCar::ActionBrake()
 {
 	D3DXVECTOR3 move = GetMove();
 
-	move.x += /*sinf(GetRot().y) **/ -0.1f;
-	move.z += /*cosf(GetRot().y) **/ -0.1f;
+	if (m_CurrParam.Speed < m_Param.fMaxSpeed[m_CurrParam.nGear] * 0.5f)
+	{
+		move.x += m_Param.fMaxSpeed[0] *-0.0125f;
+		move.z += m_Param.fMaxSpeed[0] *-0.0125f;
+	}
 
-	m_fAccumulationSpeed += -0.1f;
+	m_CurrParam.Speed += -0.1f;
 
 	SetMove({ move.x,0.0f,move.z });
 
@@ -210,11 +214,11 @@ float CCar::ActionBend()
 	switch (m_Action)
 	{// 車のスピードと乗算することによって速度が落ちたときに曲がれないようにする
 	case ACCELE:
-		fAddRot += 0.005f * m_fAccumulationSpeed;
+		fAddRot += 0.005f * m_CurrParam.Speed;
 		break;
 
 	case BRAKE:
-		fAddRot += -0.005f * m_fAccumulationSpeed;
+		fAddRot += -0.005f * m_CurrParam.Speed;
 		break;
 
 	default:
@@ -222,13 +226,13 @@ float CCar::ActionBend()
 	}
 
 	// 回転しすぎないように制御
-	if (fAddRot > 0.01f)
+	if (fAddRot > m_Param.fBending)
 	{
-		fAddRot = 0.01f;
+		fAddRot = m_Param.fBending;
 	}
-	else if (fAddRot < -0.01f)
+	else if (fAddRot < -m_Param.fBending)
 	{
-		fAddRot = -0.01f;
+		fAddRot = -m_Param.fBending;
 	}
 
 	return fAddRot;
