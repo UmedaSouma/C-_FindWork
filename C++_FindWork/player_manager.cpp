@@ -9,12 +9,13 @@
 #include "camera.h"
 #include "manager.h"
 
+CCarPlayer* CPlayerManager::m_pCar = nullptr;
 //===========================================================================================================
 // コンストラクタ
 //===========================================================================================================
 CPlayerManager::CPlayerManager() :
-	m_pCar(nullptr)
-	, m_pController(nullptr)
+	//m_pCar(nullptr)
+	m_pController(nullptr)
 {
 }
 
@@ -36,8 +37,11 @@ void CPlayerManager::Init()
 		m_pCar = CCarPlayer::Create(CParamStorage::CAR_NORMAL);
 	}
 
-	m_pController = new CPlayerController;
-	m_pController->Init();
+	if (m_pController = nullptr)
+	{
+		m_pController = new CPlayerController;
+	}
+
 }
 
 //===========================================================================================================
@@ -46,6 +50,7 @@ void CPlayerManager::Init()
 void CPlayerManager::Uninit()
 {
 	m_pCar->Uninit();
+	m_pCar = nullptr;
 
 	// プレイヤーコントローラーの削除
 	delete m_pController;

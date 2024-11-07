@@ -11,6 +11,7 @@
 #include "object.h"
 #include "input.h"
 #include "manager.h"
+#include "editor_param.h"
 
 // Ã“Iƒƒ“ƒo‚Ì‰Šú‰»
 
@@ -86,7 +87,7 @@ CScene* CScene::Create(MODE mode)
 		break;
 
 	case MODE::MODE_EDITOR_PRAM:
-		//pScene=new
+		pScene = new CEditor_Param;
 
 		break;
 	}

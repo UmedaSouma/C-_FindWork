@@ -82,6 +82,17 @@ void CPlayerController::Update(CCarPlayer* pCar)
 				pCar->SetGear(pCar->GetGear() - 1);
 			}
 		}
+
+		if (CScene::GetMode() == CScene::MODE_EDITOR_PRAM)
+		{
+			if (keyboard->GetTrigger(DIK_R))
+			{
+				pCar->SetPos({ 0.0f,0.0f,0.0f });
+				pCar->SetMove({ 0.0f,0.0f,0.0f });
+				pCar->SetRot({ 0.0f,0.0f,0.0f });
+			}
+		}
+	
 #endif // DEBUG
 
 		

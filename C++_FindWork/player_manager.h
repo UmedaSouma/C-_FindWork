@@ -20,8 +20,10 @@ public:
 	void Uninit();
 	void Update();
 	static CPlayerManager* Create();
+
+	static CCarPlayer* GetPlayerCar() { return m_pCar; }
 private:
-	CCarPlayer* m_pCar;
+	static CCarPlayer* m_pCar;
 	CPlayerController* m_pController;
 };
 

@@ -43,7 +43,7 @@ CGame::~CGame()
 HRESULT CGame::Init()
 {
 
-	CScene::Init();
+	//CScene::Init();
 
 	//CPlayer3D::Create({ 0.0f,0.0f,0.0f });
 
@@ -107,6 +107,8 @@ void CGame::Uninit()
 	if (m_pPlayerManager != nullptr)
 	{
 		// ƒvƒŒƒCƒ„[ŠÇ—‚ðíœ
+		m_pPlayerManager->Uninit();
+
 		delete m_pPlayerManager;
 		m_pPlayerManager = nullptr;
 	}
@@ -135,14 +137,14 @@ void CGame::Update()
 
 	if (keyboard->GetTrigger(DIK_F2))
 	{
-		pFade->SetFade(CScene::MODE_EDITOR);
+		pFade->SetFade(CScene::MODE_EDITOR_PRAM);
 	}
 
 #endif // _DEBUG
 
 	m_pPlayerManager->Update();
 
-	CScene::Update();
+	//CScene::Update();
 }
 
 //===========================================================================================================
@@ -150,5 +152,5 @@ void CGame::Update()
 //===========================================================================================================
 void CGame::Draw()
 {
-	CScene::Draw();
+	//CScene::Draw();
 }

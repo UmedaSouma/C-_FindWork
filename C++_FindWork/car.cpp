@@ -12,7 +12,6 @@
 CCar::CCar()
 {
 	// パラメーターの設定
-
 	m_Param.fWeight = MAX_WEIGHT;
 	m_Param.nMaxGear = MAX_GEAR;
 	m_Param.fBending = MAX_BENDING;
