@@ -242,6 +242,7 @@ void CCar::ActionBend_R()
 	D3DXVECTOR3 rot = GetRot();
 	float fAddRot = 0.0f;	// ‰Á‚¦‚é‰ñ“]—Ê
 
+	// ‰ÁŽZ‚·‚é‰ñ“]—Ê‚ðŽæ“¾
 	fAddRot = ActionBend();
 
 	// ‚±‚±‚ÅŽÔ‚É‰Á‚¦‚é
@@ -258,37 +259,15 @@ void CCar::ActionBend_L()
 	D3DXVECTOR3 rot = GetRot();
 	float fAddRot = 0.0f;	// ‰Á‚¦‚é‰ñ“]—Ê
 
+	// ‰ÁŽZ‚·‚é‰ñ“]—Ê‚ðŽæ“¾
 	fAddRot = ActionBend();
+	// ”½‘Î•ûŒü‚É‚·‚é
 	fAddRot *= -1;
 
 	// ‚±‚±‚ÅŽÔ‚É‰Á‚¦‚é
 	rot.y += fAddRot;
 
 	SetRot(rot);
-
-
-	//if (m_fAccumulationSpeed <= 0.1f)
-	//{
-	//	return;
-	//}
-
-	//D3DXVECTOR3 rot = GetRot();
-
-	//switch (m_Action)
-	//{
-	//case ACCELE:
-	//	rot.y += -0.01f;
-	//	break;
-
-	//case BRAKE:
-	//	rot.y += 0.01f;
-	//	break;
-
-	//default:
-	//	break;
-	//}
-
-	//SetRot(rot);
 }
 
 //===========================================================================================================
