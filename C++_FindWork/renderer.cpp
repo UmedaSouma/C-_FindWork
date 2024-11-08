@@ -213,11 +213,13 @@ void CRenderer::DebugPrint(char& pStr, char& pStr2)
 	sprintf(&pStr
 		, "車の移動量 : %f , %f , %f"
 		"\n車の向き : %f"
+		"\n車の移動方向 : %f"
 		"\n車のスピード : %f"
 		"\nカメラの向き : x = %f , y = %f ,  z = %f"
 		"\n現在のギア : %d"
 		, pCarPlayer->GetMove().x, pCarPlayer->GetMove().y, pCarPlayer->GetMove().z
 		, pCarPlayer->GetRot().y
+		, pCarPlayer->GetMoveAngle()
 		, pCarPlayer->GetAccumulationSpeed()
 		, pCamera->GetRot().x, pCamera->GetRot().y, pCamera->GetRot().z
 		, pCarPlayer->GetGear()

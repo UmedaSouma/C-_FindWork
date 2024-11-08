@@ -30,6 +30,8 @@ CCar::CCar()
 	m_CurrParam.nGear = 0;
 	m_CurrParam.Speed = 0.0f;
 	m_CurrParam.nLife = 100;
+
+	m_fMoveAngle = 0.0f;
 }
 
 //========================================================================================================================
@@ -68,6 +70,9 @@ void CCar::Update()
 	{
 		m_Action = NONE;
 	}
+
+	// 角度
+	m_fMoveAngle = atan2f(GetMove().z, GetMove().x);
 
 	D3DXVECTOR3 pos = GetPos();		// 位置
 	D3DXVECTOR3 move = GetMove();	// 移動値
@@ -210,13 +215,20 @@ float CCar::ActionBend()
 {
 	float fAddRot = 0.0f;	// 加える回転量
 
-	switch (m_Action)
+	bool bFront = false;
+
+	if (m_fMoveAngle > 0.0f)
+	{
+		bFront = true;
+	}
+
+	switch (bFront)
 	{// 車のスピードと乗算することによって速度が落ちたときに曲がれないようにする
-	case ACCELE:
+	case true:
 		fAddRot += 0.005f * m_CurrParam.Speed;
 		break;
 
-	case BRAKE:
+	case false:
 		fAddRot += -0.005f * m_CurrParam.Speed;
 		break;
 

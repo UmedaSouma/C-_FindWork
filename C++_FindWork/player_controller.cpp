@@ -45,22 +45,22 @@ void CPlayerController::Update(CCarPlayer* pCar)
 
 	if (pCar != nullptr)
 	{
-		if (keyboard->GetPress(DIK_W))
+		if (keyboard->GetPress(DIK_W) || joypad->GetPressPedal(CInputJoypad::JOYKEY_RIGHT_TRIGGER))
 		{
 			pCar->ActionAccele();
 		}
 		
-		else if (keyboard->GetPress(DIK_S))
+		else if (keyboard->GetPress(DIK_S) || joypad->GetPressPedal(CInputJoypad::JOYKEY_LEFT_TRIGGER))
 		{
 			pCar->ActionBrake();
 		}
 
-		if (keyboard->GetPress(DIK_D))
+		if (keyboard->GetPress(DIK_D) || joypad->GetPress(CInputJoypad::JOYKEY_RIGHT))
 		{
 			pCar->ActionBend_R();
 		}
 
-		else if (keyboard->GetPress(DIK_A))
+		else if (keyboard->GetPress(DIK_A) || joypad->GetPress(CInputJoypad::JOYKEY_LEFT))
 		{
 			pCar->ActionBend_L();
 		}
@@ -68,14 +68,14 @@ void CPlayerController::Update(CCarPlayer* pCar)
 #ifdef _DEBUG
 
 		// ƒMƒA•ÏX
-		if (keyboard->GetTrigger(DIK_UPARROW))
+		if (keyboard->GetTrigger(DIK_UPARROW) || joypad->GetTrigger(CInputJoypad::JOYKEY_UP))
 		{
 			if (pCar->GetGear() < pCar->GetGearNum() - 1)
 			{
 				pCar->SetGear(pCar->GetGear() + 1);
 			}
 		}
-		else if (keyboard->GetTrigger(DIK_DOWNARROW))
+		else if (keyboard->GetTrigger(DIK_DOWNARROW) || joypad->GetTrigger(CInputJoypad::JOYKEY_DOWN))
 		{
 			if (pCar->GetGear() > 0)
 			{
@@ -85,7 +85,7 @@ void CPlayerController::Update(CCarPlayer* pCar)
 
 		if (CScene::GetMode() == CScene::MODE_EDITOR_PRAM)
 		{
-			if (keyboard->GetTrigger(DIK_R))
+			if (keyboard->GetTrigger(DIK_R) || joypad->GetTrigger(CInputJoypad::JOYKEY_RIGHT_SHOULDER))
 			{
 				pCar->SetPos({ 0.0f,0.0f,0.0f });
 				pCar->SetMove({ 0.0f,0.0f,0.0f });

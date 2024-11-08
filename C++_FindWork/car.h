@@ -95,6 +95,7 @@ private:
 	CurrParam m_CurrParam;	// 現在のパラメーター
 	D3DXVECTOR3 m_oldmove;		// 過去の移動値
 	ACTION_STATE m_Action;		// 車の現在の状態
+	float m_fMoveAngle;		// 移動方向
 public:
 
 	//================================================
@@ -132,6 +133,9 @@ public:
 	//-- 蓄積スピード --
 	void SetGear(int gear) { m_CurrParam.nGear = gear; }
 	int GetGear() { return m_CurrParam.nGear; }
+
+	//-- 移動方向 --
+	float GetMoveAngle() { return m_fMoveAngle; }
 };
 
 #endif // !CAR_H_

@@ -190,6 +190,7 @@ HRESULT CInputJoypad::Init()
 	for (int i = 0; i < PEDAL_MAX; i++)
 	{
 		m_TBtrigger[i] = false;
+		m_joyTBpedal[i] = 0;
 	}
 
 	// ƒƒ‚ƒŠƒNƒŠƒA
